@@ -58,8 +58,7 @@ else
 
         if ($NazivFajlaSlike != "")
         {
-            $putanjaSlike = "'SlikeStudenata/".$NazivFajlaSlike."'";
-            echo "<img width='50%' src=".$putanjaSlike.">";
+         echo "<img src=\"SlikeKnjiga/".$NazivFajlaSlike."\" width=\"45\" height=\"60\">";
         }
         else
         {

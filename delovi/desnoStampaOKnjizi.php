@@ -24,7 +24,7 @@
 <font face="Trebuchet MS" color="darkblue" size="4px">
 
 <?php
-$URLSlike = 'SlikeStudenata/'.$NazivFajlaSlike;
+$URLSlike = '/SlikeKnjiga/'.$NazivFajlaSlike;
 
 if ($NazivFajlaSlike != "") {
     echo "<img src=\"".$URLSlike."\" width=\"200\"/><br/><br/>";

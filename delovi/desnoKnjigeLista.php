@@ -59,11 +59,13 @@ else
         echo "<tr>";
 
         echo "<td align=\"center\">";
-        if ($NazivFajlaSlike != "") {
-            echo "<img src=\"SlikeStudenata/$NazivFajlaSlike\" width=\"45\" height=\"60\">";
-        } else {
-            echo "-";
-        }
+
+            if ($NazivFajlaSlike != "") {
+                echo "<img src=\"http://localhost/vp2025/SlikeKnjiga/$NazivFajlaSlike\" width=\"45\" height=\"60\">";
+            } else {
+                echo "-";
+            }
+
         echo "</td>";
 
         echo "<td><font face=\"Trebuchet MS\" color:#3F4534 size=\"2px\">$ISBN</font></td>";

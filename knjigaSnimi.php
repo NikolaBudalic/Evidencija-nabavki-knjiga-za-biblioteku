@@ -36,7 +36,7 @@ if (isset($_FILES["nazivFajlaSlike"]) && $_FILES["nazivFajlaSlike"]["error"] == 
     $tmp_name = $_FILES["nazivFajlaSlike"]["tmp_name"];
 
     if (!empty($name)) {
-        $location = 'SlikeStudenata/';
+        $location = 'SlikeKnjiga/';
         move_uploaded_file($tmp_name, $location.$name);
     }
 }
