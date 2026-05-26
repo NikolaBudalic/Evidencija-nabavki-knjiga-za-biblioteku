@@ -1,8 +1,8 @@
-CREATE DATABASE IF NOT EXISTS `Fakultet_VP_2025`
+CREATE DATABASE IF NOT EXISTS `Biblioteka_VP_2026`
 CHARACTER SET utf8mb4
 COLLATE utf8mb4_unicode_ci;
 
-USE `Fakultet_VP_2025`;
+USE `Biblioteka_VP_2026`;
 
 CREATE TABLE `zanr`
 (

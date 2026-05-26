@@ -1,4 +1,4 @@
-USE `Fakultet_VP_2025`;
+USE `Biblioteka_VP_2026`;
 
 DROP VIEW IF EXISTS `svipodacioknjigamasaslikom`;
 DROP VIEW IF EXISTS `svipodacioknjigama`;
