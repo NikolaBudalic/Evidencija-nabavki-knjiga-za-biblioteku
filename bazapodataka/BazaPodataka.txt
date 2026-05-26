@@ -1,0 +1,43 @@
+﻿CREATE DATABASE `Fakultet_VP_2025` CHARACTER SET utf8 COLLATE utf8_general_ci;
+
+create table `Fakultet_VP_2025`.`STUDENT`
+(
+   BrojIndeksa varchar(10) NOT NULL PRIMARY KEY,
+   Prezime varchar(50) not null,
+   Ime varchar(50) not null,
+   OznakaSmera    char(2) not null,
+   NazivFajlaFotografije varchar(100) null
+);
+
+
+create table `Fakultet_VP_2025`.`SMER`
+(
+   Oznaka char(2) NOT NULL PRIMARY KEY,
+   Naziv  varchar(50) not null,
+   UkupanBrojStudenata int not null
+);
+
+
+alter table `Fakultet_VP_2025`.`STUDENT` add constraint FK_PRIPADA foreign key (OznakaSmera) references `Fakultet_VP_2025`.`SMER`(Oznaka) on delete restrict on update cascade;
+
+
+create table `Fakultet_VP_2025`.`KORISNIK`
+(
+   IDKORISNIKA          int NOT NULL AUTO_INCREMENT PRIMARY KEY,
+   PREZIME              varchar(50) not null,
+   IME                  varchar(40) not null,
+   EMAIL                varchar(60) not null,
+   KORISNICKOIME        varchar(30) not null,
+   SIFRA                varchar(30) not null,
+   URLSLike		varchar(250) null,
+   statusucesca		varchar(30) not null
+);
+
+
+
+INSERT INTO `Fakultet_VP_2025`.`KORISNIK` (PREZIME, IME, EMAIL, KORISNICKOIME, SIFRA, URLSLIKE, STATUSUCESCA) VALUES ('Кази','Љубица', 'ljubicakazi@hotmail.com', 'lkazi', 'lk', 'Ljubica.jpg', 'admin');
+
+INSERT INTO `Fakultet_VP_2025`.`SMER` (Oznaka, Naziv, UkupanBrojStudenata) VALUES ('СИ', 'Софтверско инжењерство',0);
+INSERT INTO `Fakultet_VP_2025`.`SMER` (Oznaka, Naziv, UkupanBrojStudenata) VALUES ('ИТ', 'Информационе технологије',0);
+
+
