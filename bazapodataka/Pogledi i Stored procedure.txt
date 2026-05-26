@@ -1,20 +1,50 @@
-RESENJE - POGLEDI
-------------------------------------------
-CREATE VIEW `Fakultet_VP_2025`.`SviPodaciOKnjigama` AS select `knjiga`.`ISBN`, `knjiga`.`Naziv`, `knjiga`.`Autor`, `zanr`.`Naziv` as `NazivZanra` from `Fakultet_VP_2025`.`knjiga` INNER JOIN `Fakultet_VP_2025`.`zanr` ON `Fakultet_VP_2025`.`knjiga`.`OznakaZanra`=`Fakultet_VP_2025`.`zanr`.`Oznaka`;
-
-
-CREATE VIEW `Fakultet_VP_2025`.`SviPodaciOKnjigamaSaSlikom` AS select `knjiga`.`ISBN`, `knjiga`.`Naziv`, `knjiga`.`Autor`, `zanr`.`Naziv` as `NazivZanra`, `knjiga`.`NazivFajlaSlike`   from `Fakultet_VP_2025`.`knjiga` INNER JOIN `Fakultet_VP_2025`.`zanr` ON `Fakultet_VP_2025`.`knjiga`.`OznakaZanra`=`Fakultet_VP_2025`.`zanr`.`Oznaka`;
-
-
-RESENJE ZA STORED PROCEDURU- insert into
------------------------
 USE `Fakultet_VP_2025`;
-DROP procedure IF EXISTS `DodajKnjigu`;
+
+DROP VIEW IF EXISTS `svipodacioknjigamasaslikom`;
+DROP VIEW IF EXISTS `svipodacioknjigama`;
+
+CREATE VIEW `svipodacioknjigama` AS
+SELECT 
+    `knjiga`.`ISBN`,
+    `knjiga`.`Naziv`,
+    `knjiga`.`Autor`,
+    `zanr`.`Naziv` AS `NazivZanra`
+FROM `knjiga`
+INNER JOIN `zanr`
+ON `knjiga`.`OznakaZanra` = `zanr`.`Oznaka`;
+
+CREATE VIEW `svipodacioknjigamasaslikom` AS
+SELECT 
+    `knjiga`.`ISBN`,
+    `knjiga`.`Naziv`,
+    `knjiga`.`Autor`,
+    `zanr`.`Naziv` AS `NazivZanra`,
+    `knjiga`.`NazivFajlaSlike`
+FROM `knjiga`
+INNER JOIN `zanr`
+ON `knjiga`.`OznakaZanra` = `zanr`.`Oznaka`;
+
+DROP PROCEDURE IF EXISTS `DodajKnjigu`;
+
 DELIMITER $$
-USE `Fakultet_VP_2025`$$
-CREATE PROCEDURE `DodajKnjigu` (IN ISBNParametar varchar(13), IN NazivParametar varchar(100), IN AutorParametar varchar(100), IN OznakaZanraParametar char(2), IN NazivFajlaSlikeParametar varchar(100))
+
+CREATE PROCEDURE `DodajKnjigu`
+(
+    IN ISBNParametar VARCHAR(13),
+    IN NazivParametar VARCHAR(100),
+    IN AutorParametar VARCHAR(100),
+    IN OznakaZanraParametar CHAR(2),
+    IN NazivFajlaSlikeParametar VARCHAR(100)
+)
 BEGIN
-INSERT INTO `knjiga` (`ISBN`, `Naziv`, `Autor`, `OznakaZanra`, `NazivFajlaSlike`) VALUES (ISBNParametar, NazivParametar, AutorParametar, OznakaZanraParametar, NazivFajlaSlikeParametar);
-END
-$$
+    INSERT INTO `knjiga`
+    (`ISBN`, `Naziv`, `Autor`, `OznakaZanra`, `NazivFajlaSlike`)
+    VALUES
+    (ISBNParametar, NazivParametar, AutorParametar, OznakaZanraParametar, NazivFajlaSlikeParametar);
+
+    UPDATE `zanr`
+    SET `UkupanBrojKnjiga` = `UkupanBrojKnjiga` + 1
+    WHERE `Oznaka` = OznakaZanraParametar;
+END $$
+
 DELIMITER ;
