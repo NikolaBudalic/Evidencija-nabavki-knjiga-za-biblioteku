@@ -1,24 +1,26 @@
-﻿CREATE DATABASE `Fakultet_VP_2025` CHARACTER SET utf8 COLLATE utf8_general_ci;
+CREATE DATABASE `Fakultet_VP_2025` CHARACTER SET utf8 COLLATE utf8_general_ci;
 
-create table `Fakultet_VP_2025`.`STUDENT`
+create table `Fakultet_VP_2025`.`knjiga`
 (
-   BrojIndeksa varchar(10) NOT NULL PRIMARY KEY,
-   Prezime varchar(50) not null,
-   Ime varchar(50) not null,
-   OznakaSmera    char(2) not null,
-   NazivFajlaFotografije varchar(100) null
+   ISBN varchar(13) NOT NULL PRIMARY KEY,
+   Naziv varchar(100) not null,
+   Autor varchar(100) not null,
+   OznakaZanra    char(2) not null,
+   NazivFajlaSlike varchar(100) null
 );
 
 
-create table `Fakultet_VP_2025`.`SMER`
+
+create table `Fakultet_VP_2025`.`zanr`
 (
    Oznaka char(2) NOT NULL PRIMARY KEY,
    Naziv  varchar(50) not null,
-   UkupanBrojStudenata int not null
+   UkupanBrojKnjiga int not null
 );
 
 
-alter table `Fakultet_VP_2025`.`STUDENT` add constraint FK_PRIPADA foreign key (OznakaSmera) references `Fakultet_VP_2025`.`SMER`(Oznaka) on delete restrict on update cascade;
+
+alter table `Fakultet_VP_2025`.`knjiga` add constraint FK_PRIPADA foreign key (OznakaZanra) references `Fakultet_VP_2025`.`zanr`(Oznaka) on delete restrict on update cascade;
 
 
 create table `Fakultet_VP_2025`.`KORISNIK`
@@ -37,7 +39,5 @@ create table `Fakultet_VP_2025`.`KORISNIK`
 
 INSERT INTO `Fakultet_VP_2025`.`KORISNIK` (PREZIME, IME, EMAIL, KORISNICKOIME, SIFRA, URLSLIKE, STATUSUCESCA) VALUES ('Кази','Љубица', 'ljubicakazi@hotmail.com', 'lkazi', 'lk', 'Ljubica.jpg', 'admin');
 
-INSERT INTO `Fakultet_VP_2025`.`SMER` (Oznaka, Naziv, UkupanBrojStudenata) VALUES ('СИ', 'Софтверско инжењерство',0);
-INSERT INTO `Fakultet_VP_2025`.`SMER` (Oznaka, Naziv, UkupanBrojStudenata) VALUES ('ИТ', 'Информационе технологије',0);
-
-
+INSERT INTO `Fakultet_VP_2025`.`zanr` (Oznaka, Naziv, UkupanBrojKnjiga) VALUES ('СИ', 'Софтверско инжењерство',0);
+INSERT INTO `Fakultet_VP_2025`.`zanr` (Oznaka, Naziv, UkupanBrojKnjiga) VALUES ('ИТ', 'Информационе технологије',0);
