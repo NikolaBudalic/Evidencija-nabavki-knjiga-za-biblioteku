@@ -8,45 +8,45 @@ if (!isset($korisnik)) {
     exit();
 }
 
-$brojIndeksa = trim($_POST['brojIndeksa']);
-$StariBrojIndeksa = trim($_POST['StariBrojIndeksa']);
-$prezime = trim($_POST['prezime']);
-$ime = trim($_POST['ime']);
-$oznakaSmera = trim($_POST['oznakaSmera']);
+$ISBN = trim($_POST['isbn']);
+$StariISBN = trim($_POST['StariISBN']);
+$Naziv = trim($_POST['naziv']);
+$Autor = trim($_POST['autor']);
+$OznakaZanra = trim($_POST['oznakaZanra']);
 
-if (!preg_match('/^[0-9]{13}$/', $brojIndeksa)) {
+if (!preg_match('/^[0-9]{13}$/', $ISBN)) {
     die("Грешка: ISBN мора имати тачно 13 цифара.<br><br><a href=\"KnjigeLista.php\">ПОВРАТАК</a>");
 }
 
-if ($prezime == "" || strlen($prezime) > 100) {
+if ($Naziv == "" || strlen($Naziv) > 100) {
     die("Грешка: Назив књиге је обавезан и не сме бити дужи од 100 карактера.<br><br><a href=\"KnjigeLista.php\">ПОВРАТАК</a>");
 }
 
-if ($ime == "" || strlen($ime) > 100) {
+if ($Autor == "" || strlen($Autor) > 100) {
     die("Грешка: Аутор је обавезан и не сме бити дужи од 100 карактера.<br><br><a href=\"KnjigeLista.php\">ПОВРАТАК</a>");
 }
 
-if ($oznakaSmera == "") {
+if ($OznakaZanra == "") {
     die("Грешка: Морате изабрати жанр.<br><br><a href=\"KnjigeLista.php\">ПОВРАТАК</a>");
 }
 
-$nazivFajlaFotografije = "";
+$NazivFajlaSlike = "";
 
-if (isset($_FILES["nazivFajlaFotografije"]) && $_FILES["nazivFajlaFotografije"]["error"] == 0) {
-    $name = basename($_FILES["nazivFajlaFotografije"]["name"]);
-    $tmp_name = $_FILES["nazivFajlaFotografije"]["tmp_name"];
+if (isset($_FILES["nazivFajlaSlike"]) && $_FILES["nazivFajlaSlike"]["error"] == 0) {
+    $name = basename($_FILES["nazivFajlaSlike"]["name"]);
+    $tmp_name = $_FILES["nazivFajlaSlike"]["tmp_name"];
 
     if (!empty($name)) {
         $location = 'SlikeStudenata/';
         move_uploaded_file($tmp_name, $location.$name);
-        $nazivFajlaFotografije = $name;
+        $NazivFajlaSlike = $name;
     }
 }
 
-$StariNazivFajlaFotografije = $_POST['StariNazivFajlaFotografije'];
+$StariNazivFajlaSlike = $_POST['StariNazivFajlaSlike'];
 
-if ($nazivFajlaFotografije == "") {
-    $nazivFajlaFotografije = $StariNazivFajlaFotografije;
+if ($NazivFajlaSlike == "") {
+    $NazivFajlaSlike = $StariNazivFajlaSlike;
 }
 
 require "klase/BaznaKonekcija.php";
@@ -61,25 +61,25 @@ if ($KonekcijaObject->konekcijaDB) {
     $konekcija = $KonekcijaObject->konekcijaDB;
     $baza = $KonekcijaObject->KompletanNazivBazePodataka;
 
-    $brojIndeksa = mysqli_real_escape_string($konekcija, $brojIndeksa);
-    $StariBrojIndeksa = mysqli_real_escape_string($konekcija, $StariBrojIndeksa);
+    $ISBN = mysqli_real_escape_string($konekcija, $ISBN);
+    $StariISBN = mysqli_real_escape_string($konekcija, $StariISBN);
 
-    if ($brojIndeksa != $StariBrojIndeksa) {
-        $provera = mysqli_query($konekcija, "SELECT ISBN FROM `$baza`.`knjiga` WHERE ISBN='$brojIndeksa'");
+    if ($ISBN != $StariISBN) {
+        $provera = mysqli_query($konekcija, "SELECT ISBN FROM `$baza`.`knjiga` WHERE ISBN='$ISBN'");
 
         if (mysqli_num_rows($provera) > 0) {
             die("Грешка: Књига са тим ISBN бројем већ постоји.<br><br><a href=\"KnjigeLista.php\">ПОВРАТАК</a>");
         }
     }
 
-    $StudentObject = new DBStudent($KonekcijaObject, 'knjiga');
-    $greska = $StudentObject->IzmeniStudenta(
-        $StariBrojIndeksa,
-        $brojIndeksa,
-        $prezime,
-        $ime,
-        $oznakaSmera,
-        $nazivFajlaFotografije
+    $KnjigaObject = new DBKnjiga($KonekcijaObject, 'knjiga');
+    $greska = $KnjigaObject->IzmeniKnjigu(
+        $StariISBN,
+        $ISBN,
+        $Naziv,
+        $Autor,
+        $OznakaZanra,
+        $NazivFajlaSlike
     );
 
 } else {

@@ -8,10 +8,10 @@ if (!isset($korisnik)) {
     exit();
 }
 
-$ISBN = trim($_POST['brojIndeksa']);
-$Naziv = trim($_POST['prezime']);
-$Autor = trim($_POST['ime']);
-$OznakaZanra = trim($_POST['oznakaSmera']);
+$ISBN = trim($_POST['isbn']);
+$Naziv = trim($_POST['naziv']);
+$Autor = trim($_POST['autor']);
+$OznakaZanra = trim($_POST['oznakaZanra']);
 
 if (!preg_match('/^[0-9]{13}$/', $ISBN)) {
     die("Грешка: ISBN мора имати тачно 13 цифара.<br><br><a href=\"unos.php\">ПОВРАТАК</a>");
@@ -31,9 +31,9 @@ if ($OznakaZanra == "") {
 
 $name = "";
 
-if (isset($_FILES["nazivFajlaFotografije"]) && $_FILES["nazivFajlaFotografije"]["error"] == 0) {
-    $name = basename($_FILES["nazivFajlaFotografije"]["name"]);
-    $tmp_name = $_FILES["nazivFajlaFotografije"]["tmp_name"];
+if (isset($_FILES["nazivFajlaSlike"]) && $_FILES["nazivFajlaSlike"]["error"] == 0) {
+    $name = basename($_FILES["nazivFajlaSlike"]["name"]);
+    $tmp_name = $_FILES["nazivFajlaSlike"]["tmp_name"];
 
     if (!empty($name)) {
         $location = 'SlikeStudenata/';
@@ -41,7 +41,7 @@ if (isset($_FILES["nazivFajlaFotografije"]) && $_FILES["nazivFajlaFotografije"][
     }
 }
 
-$NazivFajlaSlike = $name;
+    $NazivFajlaSlike = $name;
 
 require "klase/BaznaKonekcija.php";
 

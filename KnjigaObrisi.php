@@ -8,7 +8,7 @@ if (!isset($korisnik)) {
     exit();
 }
 
-$IdZaBrisanje = $_POST['BrojIndeksa'];
+$IdZaBrisanje = $_POST['isbn'];
 
 require "klase/BaznaKonekcija.php";
 require "klase/BaznaTabela.php";
@@ -26,13 +26,13 @@ if ($KonekcijaObject->konekcijaDB) {
     $TransakcijaObject = new Transakcija($KonekcijaObject);
     $TransakcijaObject->ZapocniTransakciju();
 
-    $StudentObject = new DBStudent($KonekcijaObject, 'knjiga');
+    $KnjigaObject = new DBKnjiga($KonekcijaObject, 'knjiga');
 
-    $OznakaSmera = $StudentObject->DajOznakuSmeraStudenta($IdZaBrisanje);
-    $greska1 = $StudentObject->ObrisiStudenta($IdZaBrisanje);
+    $OznakaZanra = $KnjigaObject->DajOznakuZanraKnjige($IdZaBrisanje);
+    $greska1 = $KnjigaObject->ObrisiKnjigu($IdZaBrisanje);
 
-    $SmerObject = new DBSmer($KonekcijaObject, 'zanr');
-    $greska2 = $SmerObject->DekrementirajBrojStudenata($OznakaSmera);
+    $ZanrObject = new DBZanr($KonekcijaObject, 'zanr');
+    $greska2 = $ZanrObject->DekrementirajBrojKnjiga($OznakaZanra);
 
     $UtvrdjenaGreska = $greska1 . $greska2;
 

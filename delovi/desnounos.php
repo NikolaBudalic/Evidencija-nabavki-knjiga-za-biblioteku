@@ -38,7 +38,7 @@
 <b><font face="Trebuchet MS" color="black" size="2px">ISBN&nbsp;&nbsp;</font></b>
 </td>
 <td align="left" valign="bottom">
-<input name="brojIndeksa" type="text" size="50" maxlength="13" minlength="13"
+<input name="isbn" type="text" size="50" maxlength="13" minlength="13"
 pattern="[0-9]{13}"
 title="ISBN мора имати тачно 13 цифара"
 placeholder="Унесите ISBN књиге" required />
@@ -55,7 +55,7 @@ placeholder="Унесите ISBN књиге" required />
 <b><font face="Trebuchet MS" color="black" size="2px">Назив књиге&nbsp;&nbsp;</font><br/></b>
 </td>
 <td align="left" valign="bottom">
-<input name="prezime" type="text" size="50" maxlength="100"
+<input name="naziv" type="text" size="50" maxlength="100"
 placeholder="Унесите назив књиге" required />
 </td>
 </tr>
@@ -70,7 +70,7 @@ placeholder="Унесите назив књиге" required />
 <b><font face="Trebuchet MS" color="black" size="2px">Аутор&nbsp;&nbsp;</font><br/></b>
 </td>
 <td align="left" valign="bottom">
-<input name="ime" type="text" size="50" maxlength="100"
+<input name="autor" type="text" size="50" maxlength="100"
 placeholder="Унесите аутора" required />
 </td>
 </tr>
@@ -86,16 +86,16 @@ placeholder="Унесите аутора" required />
 </td>
 <td align="left" valign="bottom">
 
-<select name="oznakaSmera" required tabindex="7">
+<select name="oznakaZanra" required tabindex="7">
     <option value="">изаберите...</option>
     <?php
     if ($UkupanBrojZapisa > 0) 
     {                   
-        for ($brojacSmerova = 0; $brojacSmerova < $UkupanBrojZapisa; $brojacSmerova++) 
+        for ($brojacZanrova = 0; $brojacZanrova < $UkupanBrojZapisa; $brojacZanrova++) 
         {
-            $oznakaSmera = $SmerObject->DajVrednostPoRednomBrojuZapisaPoRBPolja($KolekcijaZapisa, $brojacSmerova, 0);               
-            $nazivSmera = $SmerObject->DajVrednostPoRednomBrojuZapisaPoRBPolja($KolekcijaZapisa, $brojacSmerova, 1);               
-            echo "<option value=\"$oznakaSmera\">$nazivSmera</option>";                     
+            $oznakaZanra = $ZanrObject->DajVrednostPoRednomBrojuZapisaPoRBPolja($KolekcijaZapisa, $brojacZanrova, 0);               
+            $nazivZanra = $ZanrObject->DajVrednostPoRednomBrojuZapisaPoRBPolja($KolekcijaZapisa, $brojacZanrova, 1);               
+            echo "<option value=\"$oznakaZanra\">$nazivZanra</option>";                     
         }
     }
     ?>
@@ -113,7 +113,7 @@ placeholder="Унесите аутора" required />
 <b><font face="Trebuchet MS" color="black" size="2px">Слика књиге&nbsp;&nbsp;</font><br/></b>
 </td>
 <td align="left" valign="bottom">
-<input name="nazivFajlaFotografije" type="file" size="50" />
+<input name="nazivFajlaSlike" type="file" size="50" />
 </td>
 </tr>
 

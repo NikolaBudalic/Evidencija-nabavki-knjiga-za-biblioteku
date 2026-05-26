@@ -19,22 +19,22 @@ session_destroy();
     {	
 		//echo "Успешна конекција!";
 		require "klase/DBKnjigaV.php";
-		$StudentViewObject = new DBStudent($KonekcijaObject,"student");
+		$KnjigaViewObject = new DBKnjiga($KonekcijaObject,"student");
 		if (isset($_GET['filtriraj']))
 			{
 				// prikaz filtriranih podataka primenom pogleda nad kojim je dodat filter
 				$filter=$_GET['filter'];
-				$StudentViewObject->DajSvePodatkeOStudentima($filter);
+				$KnjigaViewObject->DajSvePodatkeOKnjigama($filter);
 
 			}
 			else
 			{
 				// prikaz svih podataka primenom pogleda koji je u bazi podataka
 				$filter=null;
-				$StudentViewObject->DajSvePodatkeOStudentima($filter);
+				$KnjigaViewObject->DajSvePodatkeOKnjigama($filter);
 				// sada raspolazemo sa:
-				//$StudentViewObject->Kolekcija 
-				//$StudentViewObject->BrojZapisa
+				//$KnjigaViewObject->Kolekcija 
+				//$KnjigaViewObject->BrojZapisa
 			}
 
 
@@ -54,17 +54,14 @@ session_destroy();
 <head>
 <title>ТФ М Пупин Зрењанин</title>
 <meta charset="UTF-8">
-<!-----STIL PRIKAZA CSS---->
 <!-----<link rel="stylesheet" type="text/css" href="css/style.css" media="screen">--->
 <!----- POSTAVLJEN U PHP DA BI SE ODMAH VIDELA PROMENA, A NE DA VUCE IZ KESIRANOG FOLDERA U BROWSERU---->
 <?php include 'css/stil.php';?>
-</head>
 <body>
 
 <!-----VELIKA TABELA KOJA SADRZI SVE---->
 <!-----10% SADRZAJ 10%---->
 <table class="no-spacing" style="width:100%; padding:0" align="center" cellspacing="0" cellpadding="0" border="0" style="border-spacing: 0;">
-
 <!-------------------------- ZAGLAVLJE ------->
 <?php include 'delovi/zaglavljeindex.php';?>
 

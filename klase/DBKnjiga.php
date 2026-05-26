@@ -1,59 +1,59 @@
 <?php
-class DBStudent extends Tabela 
+class DBKnjiga extends Tabela 
 {
-    public $BrojIndeksa;
-    public $Prezime;
-    public $Ime;
-    public $OznakaSmera;
-    public $NazivFajlaFotografije;
+    public $ISBN;
+    public $Naziv;
+    public $Autor;
+    public $OznakaZanra;
+    public $NazivFajlaSlike;
 
-    public function DajKolekcijuSvihStudenata()
+    public function DajKolekcijuSvihKnjiga()
     {
         $SQL = "select * from `knjiga` ORDER BY Naziv ASC";
         $this->UcitajSvePoUpitu($SQL);
         return $this->Kolekcija;
     }
 
-    public function UcitajStudentaPoBrojuIndeksa($BrojIndeksaParametar)
+    public function UcitajKnjiguPoISBN($ISBNParametar)
     {
-        $SQL = "select * from `knjiga` where `ISBN`='".$BrojIndeksaParametar."'";
+        $SQL = "select * from `knjiga` where `ISBN`='".$ISBNParametar."'";
         $this->UcitajSvePoUpitu($SQL);
     }
 
-    public function DajOznakuSmeraStudenta($BrojIndeksaParametar)
+    public function DajOznakuZanraKnjige($ISBNParametar)
     {
-        $SQL = "select `OznakaZanra` from `knjiga` where `ISBN`='".$BrojIndeksaParametar."'";
+        $SQL = "select `OznakaZanra` from `knjiga` where `ISBN`='".$ISBNParametar."'";
         $this->UcitajSvePoUpitu($SQL);
         return $this->DajVrednostPoRednomBrojuZapisaPoRBPolja($this->Kolekcija, 0, 0);
     }
 
-    public function DodajNovogStudenta()
+    public function DodajNovuKnjigu()
     {
         $SQL = "INSERT INTO `knjiga`
         (ISBN, Naziv, Autor, OznakaZanra, NazivFajlaSlike)
         VALUES
-        ('$this->BrojIndeksa', '$this->Prezime', '$this->Ime', '$this->OznakaSmera', '$this->NazivFajlaFotografije')";
+        ('$this->ISBN', '$this->Naziv', '$this->Autor', '$this->OznakaZanra', '$this->NazivFajlaSlike')";
 
         $greska = $this->IzvrsiAktivanSQLUpit($SQL);
         return $greska;
     }
 
-    public function ObrisiStudenta($IdZaBrisanje)
+    public function ObrisiKnjigu($IdZaBrisanje)
     {
         $SQL = "DELETE FROM `knjiga` WHERE ISBN='".$IdZaBrisanje."'";
         $greska = $this->IzvrsiAktivanSQLUpit($SQL);
         return $greska;
     }
 
-    public function IzmeniStudenta($StariBrojIndeksa, $brojIndeksa, $prezime, $ime, $oznakaSmera, $nazivFajlaFotografije)
+    public function IzmeniKnjigu($StariISBN, $ISBN, $Naziv, $Autor, $OznakaZanra, $NazivFajlaSlike)
     {
         $SQL = "UPDATE `knjiga`
-        SET ISBN='".$brojIndeksa."',
-            Naziv='".$prezime."',
-            Autor='".$ime."',
-            OznakaZanra='".$oznakaSmera."',
-            NazivFajlaSlike='".$nazivFajlaFotografije."'
-        WHERE ISBN='".$StariBrojIndeksa."'";
+        SET ISBN='".$ISBN."',
+            Naziv='".$Naziv."',
+            Autor='".$Autor."',
+            OznakaZanra='".$OznakaZanra."',
+            NazivFajlaSlike='".$NazivFajlaSlike."'
+        WHERE ISBN='".$StariISBN."'";
 
         $greska = $this->IzvrsiAktivanSQLUpit($SQL);
         return $greska;

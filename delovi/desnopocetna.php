@@ -30,7 +30,7 @@ ISBN: <input type="text" name="filter" />
 <font face="Trebuchet MS" color="darkblue" size="4px">
 
 <?php
-if ($StudentViewObject->BrojZapisa==0)
+if ($KnjigaViewObject->BrojZapisa==0)
 {
     echo "НЕМА ЗАПИСА У ТАБЕЛИ!";
 }
@@ -45,13 +45,13 @@ else
     echo "<td style=\"width:20%;\"><b><font face=\"Trebuchet MS\" color:#3F4534 size=\"2px\">&nbsp;ЖАНР&nbsp;</font></b><br/></td>";
     echo "</tr>";
 
-    for ($RBZapisa = 0; $RBZapisa < $StudentViewObject->BrojZapisa; $RBZapisa++) 
+    for ($RBZapisa = 0; $RBZapisa < $KnjigaViewObject->BrojZapisa; $RBZapisa++) 
     {
-        $ISBN = $StudentViewObject->DajVrednostPoRednomBrojuZapisaPoRBPolja($StudentViewObject->Kolekcija, $RBZapisa, 0);
-        $Naziv = $StudentViewObject->DajVrednostPoRednomBrojuZapisaPoRBPolja($StudentViewObject->Kolekcija, $RBZapisa, 1);
-        $Autor = $StudentViewObject->DajVrednostPoRednomBrojuZapisaPoRBPolja($StudentViewObject->Kolekcija, $RBZapisa, 2);
-        $NazivZanra = $StudentViewObject->DajVrednostPoRednomBrojuZapisaPoRBPolja($StudentViewObject->Kolekcija, $RBZapisa, 3);
-        $NazivFajlaSlike = $StudentViewObject->DajVrednostPoRednomBrojuZapisaPoRBPolja($StudentViewObject->Kolekcija, $RBZapisa, 4);
+        $ISBN = $KnjigaViewObject->DajVrednostPoRednomBrojuZapisaPoRBPolja($KnjigaViewObject->Kolekcija, $RBZapisa, 0);
+        $Naziv = $KnjigaViewObject->DajVrednostPoRednomBrojuZapisaPoRBPolja($KnjigaViewObject->Kolekcija, $RBZapisa, 1);
+        $Autor = $KnjigaViewObject->DajVrednostPoRednomBrojuZapisaPoRBPolja($KnjigaViewObject->Kolekcija, $RBZapisa, 2);
+        $NazivZanra = $KnjigaViewObject->DajVrednostPoRednomBrojuZapisaPoRBPolja($KnjigaViewObject->Kolekcija, $RBZapisa, 3);
+        $NazivFajlaSlike = $KnjigaViewObject->DajVrednostPoRednomBrojuZapisaPoRBPolja($KnjigaViewObject->Kolekcija, $RBZapisa, 4);
 
         echo "<tr>";
         echo "<td align=\"center\">";
@@ -76,7 +76,7 @@ else
 
     echo "<tr>";
     echo "<td colspan=\"4\" align=\"right\"></td>";
-    echo "<td align=\"right\"><b><font face=\"Trebuchet MS\" color:#3F4534 size=\"2px\">УКУПНО: ".$StudentViewObject->BrojZapisa."&nbsp;&nbsp;</font><br/></td>";
+    echo "<td align=\"right\"><b><font face=\"Trebuchet MS\" color:#3F4534 size=\"2px\">УКУПНО: ".$KnjigaViewObject->BrojZapisa."&nbsp;&nbsp;</font><br/></td>";
     echo "</tr>";
 
     echo "</table>";

@@ -12,23 +12,23 @@ $KonekcijaObject->connect();
 if ($KonekcijaObject->konekcijaDB) // uspesno realizovana konekcija ka DBMS i bazi podataka
 {	
 	//echo "Успешна конекција!";
-	require "klase/DBKnjigaV.php";
-	$StudentViewObject = new DBStudent($KonekcijaObject,"student");
+    	require "klase/DBKnjigaV.php";
+		$KnjigaViewObject = new DBKnjiga($KonekcijaObject,"student");
 	if (isset($_GET['filtriraj']))
 		{
 			// prikaz filtriranih podataka primenom pogleda nad kojim je dodat filter
 			$filter=$_GET['filter'];
-			$StudentViewObject->DajSvePodatkeOStudentima($filter);
+			$KnjigaViewObject->DajSvePodatkeOKnjigama($filter);
 
 		}
 		else
 		{
 			// prikaz svih podataka primenom pogleda koji je u bazi podataka
 			$filter=null;
-			$StudentViewObject->DajSvePodatkeOStudentima($filter);
+			$KnjigaViewObject->DajSvePodatkeOKnjigama($filter);
 			// sada raspolazemo sa:
-			//$StudentViewObject->Kolekcija 
-			//$StudentViewObject->BrojZapisa
+			//$KnjigaViewObject->Kolekcija 
+			//$KnjigaViewObject->BrojZapisa
 		}
 }
 else

@@ -24,16 +24,16 @@
 <font face="Trebuchet MS" color="darkblue" size="4px">
 
 <?php
-$URLSlike = 'SlikeStudenata/'.$NazivFajlaFotografije;
+$URLSlike = 'SlikeStudenata/'.$NazivFajlaSlike;
 
-if ($NazivFajlaFotografije != "") {
+if ($NazivFajlaSlike != "") {
     echo "<img src=\"".$URLSlike."\" width=\"200\"/><br/><br/>";
 }
 
-echo "<font face=\"Trebuchet MS\" color:#3F4534 size=\"3px\">ISBN: $BrojIndeksa</font><br/>";
-echo "<b><font face=\"Trebuchet MS\" color:#3F4534 size=\"3px\">Назив књиге: $Prezime</font><br/>";
-echo "<b><font face=\"Trebuchet MS\" color:#3F4534 size=\"3px\">Аутор: $Ime</font><br/>";
-echo "<b><font face=\"Trebuchet MS\" color:#3F4534 size=\"3px\">Жанр: $NazivSmera</font><br/>";
+echo "<font face=\"Trebuchet MS\" color:#3F4534 size=\"3px\">ISBN: $ISBN</font><br/>";
+echo "<b><font face=\"Trebuchet MS\" color:#3F4534 size=\"3px\">Назив књиге: $Naziv</font><br/>";
+echo "<b><font face=\"Trebuchet MS\" color:#3F4534 size=\"3px\">Аутор: $Autor</font><br/>";
+echo "<b><font face=\"Trebuchet MS\" color:#3F4534 size=\"3px\">Жанр: $NazivZanra</font><br/>";
 ?>
 
 </font>

@@ -1,7 +1,7 @@
 <?php
-class DBStudent extends Tabela 
+class DBKnjiga extends Tabela 
 {
-    public function DajSvePodatkeOStudentima($filterParametar)
+    public function DajSvePodatkeOKnjigama($filterParametar)
     {
         if (isset($filterParametar) && $filterParametar != "")
         {

@@ -1,17 +1,17 @@
 <?php
-class DBSmer extends Tabela 
+class DBZanr extends Tabela 
 {
     public $Oznaka;
     public $Naziv; 
-    public $UkupanBrojStudenata;
+    public $UkupanBrojKnjiga;
 
-    public function UcitajKolekcijuSvihSmerova()
+    public function UcitajKolekcijuSvihZanrova()
     {
         $SQL = "select * from `".$this->NazivBazePodataka."`.`zanr` ORDER BY Naziv ASC";
         $this->UcitajSvePoUpitu($SQL);
     }
 
-    public function InkrementirajBrojStudenata($IDSmer)
+    public function InkrementirajBrojKnjiga($IDSmer)
     {
         $KriterijumFiltriranja = "Oznaka='".$IDSmer."'";
         $StaraVrednost = $this->DajVrednostJednogPoljaPrvogZapisa(
@@ -31,7 +31,7 @@ class DBSmer extends Tabela
         return $greska;
     }
 
-    public function DekrementirajBrojStudenata($IDSmer)
+    public function DekrementirajBrojKnjiga($IDSmer)
     {
         $KriterijumFiltriranja = "Oznaka='".$IDSmer."'";
         $StaraVrednost = $this->DajVrednostJednogPoljaPrvogZapisa(

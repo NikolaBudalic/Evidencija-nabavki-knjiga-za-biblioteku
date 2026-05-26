@@ -15,11 +15,11 @@ require "klase/DBZanr.php";
 $KonekcijaObject = new Konekcija("klase/BaznaParametriKonekcije.xml");
 $KonekcijaObject->connect();
 
-$SmerObject = new DBSmer($KonekcijaObject, "zanr");
-$SmerObject->UcitajKolekcijuSvihSmerova();
+$ZanrObject = new DBZanr($KonekcijaObject, "zanr");
+$ZanrObject->UcitajKolekcijuSvihZanrova();
 
-$KolekcijaZapisa = $SmerObject->Kolekcija;
-$UkupanBrojZapisa = $SmerObject->BrojZapisa;
+$KolekcijaZapisa = $ZanrObject->Kolekcija;
+$UkupanBrojZapisa = $ZanrObject->BrojZapisa;
 ?>
 
 <!DOCTYPE html>

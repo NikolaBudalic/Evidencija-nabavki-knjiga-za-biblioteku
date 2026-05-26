@@ -37,11 +37,11 @@
 <b><font face="Trebuchet MS" color="black" size="2px">ISBN&nbsp;&nbsp;</font></b>
 </td>
 <td align="left" valign="bottom">
-<input name="brojIndeksa" type="text" size="50" maxlength="13" minlength="13"
+<input name="isbn" type="text" size="50" maxlength="13" minlength="13"
 pattern="[0-9]{13}"
 title="ISBN мора имати тачно 13 цифара"
-value="<?php echo $StariBrojIndeksa; ?>" required />
-<input type="hidden" name="StariBrojIndeksa" value="<?php echo $StariBrojIndeksa; ?>">
+value="<?php echo $StariISBN; ?>" required />
+<input type="hidden" name="StariISBN" value="<?php echo $StariISBN; ?>">
 </td>
 </tr>
 
@@ -55,8 +55,8 @@ value="<?php echo $StariBrojIndeksa; ?>" required />
 <b><font face="Trebuchet MS" color="black" size="2px">Назив књиге&nbsp;&nbsp;</font><br/></b>
 </td>
 <td align="left" valign="bottom">
-<input name="prezime" type="text" size="50" maxlength="100"
-value="<?php echo $StaroPrezime; ?>" required />
+<input name="naziv" type="text" size="50" maxlength="100"
+value="<?php echo $StariNaziv; ?>" required />
 </td>
 </tr>
 
@@ -70,8 +70,8 @@ value="<?php echo $StaroPrezime; ?>" required />
 <b><font face="Trebuchet MS" color="black" size="2px">Аутор&nbsp;&nbsp;</font><br/></b>
 </td>
 <td align="left" valign="bottom">
-<input name="ime" type="text" size="50" maxlength="100"
-value="<?php echo $StaroIme; ?>" required />
+<input name="autor" type="text" size="50" maxlength="100"
+value="<?php echo $StariAutor; ?>" required />
 </td>
 </tr>
 
@@ -85,28 +85,28 @@ value="<?php echo $StaroIme; ?>" required />
 <b><font face="Trebuchet MS" color="black" size="2px">Жанр&nbsp;&nbsp;</font><br/></b>
 </td>
 <td align="left" valign="bottom">
-<select name="oznakaSmera" required tabindex="7">
+<select name="oznakaZanra" required tabindex="7">
     <option value="">изаберите...</option>
     <?php
     if ($UkupanBrojZapisa > 0) 
     {                   
-        for ($brojacSmerova = 0; $brojacSmerova < $UkupanBrojZapisa; $brojacSmerova++) 
+        for ($brojacZanrova = 0; $brojacZanrova < $UkupanBrojZapisa; $brojacZanrova++) 
         {
-            $oznakaSmera = $SmerObject->DajVrednostPoRednomBrojuZapisaPoRBPolja($KolekcijaZapisa, $brojacSmerova, 0);               
-            $nazivSmera = $SmerObject->DajVrednostPoRednomBrojuZapisaPoRBPolja($KolekcijaZapisa, $brojacSmerova, 1);
+            $oznakaZanra = $ZanrObject->DajVrednostPoRednomBrojuZapisaPoRBPolja($KolekcijaZapisa, $brojacZanrova, 0);               
+            $nazivZanra = $ZanrObject->DajVrednostPoRednomBrojuZapisaPoRBPolja($KolekcijaZapisa, $brojacZanrova, 1);
 
-            if ($oznakaSmera == $StaraOznakaSmera) {
-                echo "<option value=\"$oznakaSmera\" selected>$nazivSmera</option>";
+                if ($oznakaZanra == $StaraOznakaZanra) {
+                echo "<option value=\"$oznakaZanra\" selected>$nazivZanra</option>";
             } else {
-                echo "<option value=\"$oznakaSmera\">$nazivSmera</option>";
+                echo "<option value=\"$oznakaZanra\">$nazivZanra</option>";
             }
         }
     }
     ?>
 </select>
 <br/>
-<font face="Trebuchet MS" color="black" size="2px">Тренутни жанр: <?php echo $StaraOznakaSmera; ?></font>
-<input type="hidden" name="StaraOznakaSmera" value="<?php echo $StaraOznakaSmera; ?>">
+<font face="Trebuchet MS" color="black" size="2px">Тренутни жанр: <?php echo $StaraOznakaZanra; ?></font>
+<input type="hidden" name="StaraOznakaZanra" value="<?php echo $StaraOznakaZanra; ?>">
 </td>
 </tr>
 
@@ -120,9 +120,9 @@ value="<?php echo $StaroIme; ?>" required />
 <b><font face="Trebuchet MS" color="black" size="2px">Слика књиге&nbsp;&nbsp;</font><br/></b>
 </td>
 <td align="left" valign="bottom">
-<input name="nazivFajlaFotografije" type="file" size="50" /> <br/>
-<font face="Trebuchet MS" color="black" size="2px">Стара слика: <?php echo $StariNazivFajlaFotografije; ?></font>
-<input type="hidden" name="StariNazivFajlaFotografije" value="<?php echo $StariNazivFajlaFotografije; ?>">
+<input name="nazivFajlaSlike" type="file" size="50" /> <br/>
+<font face="Trebuchet MS" color="black" size="2px">Стара слика: <?php echo $StariNazivFajlaSlike; ?></font>
+<input type="hidden" name="StariNazivFajlaSlike" value="<?php echo $StariNazivFajlaSlike; ?>">
 </td>
 </tr>
 

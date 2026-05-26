@@ -34,7 +34,7 @@
 <font face="Trebuchet MS" color="darkblue" size="4px">
 
 <?php
-if ($StudentViewObject->BrojZapisa==0)
+if ($KnjigaViewObject->BrojZapisa==0)
 {
     echo "НЕМА ЗАПИСА У ТАБЕЛИ!";
 }
@@ -48,12 +48,12 @@ else
     echo "<td style=\"width:25%;\"><b><font face=\"Trebuchet MS\" color:#3F4534 size=\"3px\">ЖАНР</font></b></td>";
     echo "</tr>";
 
-    for ($RBZapisa = 0; $RBZapisa < $StudentViewObject->BrojZapisa; $RBZapisa++) 
+    for ($RBZapisa = 0; $RBZapisa < $KnjigaViewObject->BrojZapisa; $RBZapisa++) 
     {
-        $ISBN = $StudentViewObject->DajVrednostPoRednomBrojuZapisaPoRBPolja($StudentViewObject->Kolekcija, $RBZapisa, 0);
-        $Naziv = $StudentViewObject->DajVrednostPoRednomBrojuZapisaPoRBPolja($StudentViewObject->Kolekcija, $RBZapisa, 1);
-        $Autor = $StudentViewObject->DajVrednostPoRednomBrojuZapisaPoRBPolja($StudentViewObject->Kolekcija, $RBZapisa, 2);
-        $NazivZanra = $StudentViewObject->DajVrednostPoRednomBrojuZapisaPoRBPolja($StudentViewObject->Kolekcija, $RBZapisa, 3);
+        $ISBN = $KnjigaViewObject->DajVrednostPoRednomBrojuZapisaPoRBPolja($KnjigaViewObject->Kolekcija, $RBZapisa, 0);
+        $Naziv = $KnjigaViewObject->DajVrednostPoRednomBrojuZapisaPoRBPolja($KnjigaViewObject->Kolekcija, $RBZapisa, 1);
+        $Autor = $KnjigaViewObject->DajVrednostPoRednomBrojuZapisaPoRBPolja($KnjigaViewObject->Kolekcija, $RBZapisa, 2);
+        $NazivZanra = $KnjigaViewObject->DajVrednostPoRednomBrojuZapisaPoRBPolja($KnjigaViewObject->Kolekcija, $RBZapisa, 3);
 
         echo "<tr>";
         echo "<td><font face=\"Trebuchet MS\" color:#3F4534 size=\"3px\">$ISBN</font></td>";
@@ -65,7 +65,7 @@ else
 
     echo "<tr>";
     echo "<td colspan=\"4\" align=\"right\">";
-    echo "<font face=\"Trebuchet MS\" color:#3F4534 size=\"2px\">УКУПНО: ".$StudentViewObject->BrojZapisa."</font>&nbsp;&nbsp;<br/>";
+    echo "<font face=\"Trebuchet MS\" color:#3F4534 size=\"2px\">УКУПНО: ".$KnjigaViewObject->BrojZapisa."</font>&nbsp;&nbsp;<br/>";
     echo "</td>";
     echo "</tr>";
 

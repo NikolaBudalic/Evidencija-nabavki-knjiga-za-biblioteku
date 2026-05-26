@@ -1,7 +1,7 @@
 ﻿<?php
 session_start();
 
-$BrojIndeksaZaStampu=$_POST['BrojIndeksaFilter'];
+$ISBNZaStampu=$_POST['BrojIndeksaFilter'];
 
 // KONEKTOVANJE NA BAZU
 	require "klase/BaznaKonekcija.php";
@@ -11,19 +11,19 @@ $BrojIndeksaZaStampu=$_POST['BrojIndeksaFilter'];
 	// PREUZIMANJE STARIH VREDNOSTI ZA IZABRANOG STUDENTA
 	require "klase/BaznaTabela.php";
 	require "klase/DBKnjigaV.php";
-	$StudentObject = new DBStudent($KonekcijaObject, 'student');
-	$StudentObject->DajSvePodatkeOStudentima($BrojIndeksaZaStampu);
-	$KolekcijaZapisaStudenata= $StudentObject->Kolekcija;
-	$UkupanBrojZapisaStudenata = $StudentObject->BrojZapisa;
+	$KnjigaObject = new DBKnjiga($KonekcijaObject, 'knjiga');
+	$KnjigaObject->DajSvePodatkeOKnjigama($ISBNZaStampu);
+	$KolekcijaZapisaStudenata= $KnjigaObject->Kolekcija;
+	$UkupanBrojZapisaStudenata = $KnjigaObject->BrojZapisa;
 	
 	if ($UkupanBrojZapisaStudenata>0) 
 	{
 		$row=0;  // prvi i jedini red ima taj id
-		$BrojIndeksa=$StudentObject->DajVrednostPoRednomBrojuZapisaPoRBPolja ($KolekcijaZapisaStudenata, $row, 0);//mysql_result($result,$row,"REGISTARSKIBROJ");
-		$Prezime=$StudentObject->DajVrednostPoRednomBrojuZapisaPoRBPolja ($KolekcijaZapisaStudenata, $row, 1);
-		$Ime=$StudentObject->DajVrednostPoRednomBrojuZapisaPoRBPolja ($KolekcijaZapisaStudenata, $row, 2);
-		$NazivSmera=$StudentObject->DajVrednostPoRednomBrojuZapisaPoRBPolja ($KolekcijaZapisaStudenata, $row, 3);
-		$NazivFajlaFotografije=$StudentObject->DajVrednostPoRednomBrojuZapisaPoRBPolja ($KolekcijaZapisaStudenata, $row, 4);
+		$ISBN=$KnjigaObject->DajVrednostPoRednomBrojuZapisaPoRBPolja ($KolekcijaZapisaStudenata, $row, 0);//mysql_result($result,$row,"REGISTARSKIBROJ");
+		$Naziv=$KnjigaObject->DajVrednostPoRednomBrojuZapisaPoRBPolja ($KolekcijaZapisaStudenata, $row, 1);
+		$Autor=$KnjigaObject->DajVrednostPoRednomBrojuZapisaPoRBPolja ($KolekcijaZapisaStudenata, $row, 2);
+		$NazivZanra=$KnjigaObject->DajVrednostPoRednomBrojuZapisaPoRBPolja ($KolekcijaZapisaStudenata, $row, 3);
+		$NazivFajlaSlike=$KnjigaObject->DajVrednostPoRednomBrojuZapisaPoRBPolja ($KolekcijaZapisaStudenata, $row, 4);
 	}         
 
 ?>

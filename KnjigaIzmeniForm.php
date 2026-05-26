@@ -8,7 +8,7 @@ if (!isset($korisnik)) {
     exit();
 }
 
-$StariISBNZaIzmenu = $_POST['BrojIndeksa'];
+$StariISBNZaIzmenu = $_POST['isbn'];
 
 require "klase/BaznaKonekcija.php";
 require "klase/BaznaTabela.php";
@@ -18,24 +18,25 @@ require "klase/DBKnjiga.php";
 $KonekcijaObject = new Konekcija("klase/BaznaParametriKonekcije.xml");
 $KonekcijaObject->connect();
 
-$SmerObject = new DBSmer($KonekcijaObject, "zanr");
-$SmerObject->UcitajKolekcijuSvihSmerova();
-$KolekcijaZapisa = $SmerObject->Kolekcija;
-$UkupanBrojZapisa = $SmerObject->BrojZapisa;
 
-$StudentObject = new DBStudent($KonekcijaObject, 'knjiga');
-$StudentObject->UcitajStudentaPoBrojuIndeksa($StariISBNZaIzmenu);
+$ZanrObject = new DBZanr($KonekcijaObject, "zanr");
+$ZanrObject->UcitajKolekcijuSvihZanrova();
+$KolekcijaZapisa = $ZanrObject->Kolekcija;
+$UkupanBrojZapisa = $ZanrObject->BrojZapisa;
 
-$KolekcijaZapisaStudenata = $StudentObject->Kolekcija;
-$UkupanBrojZapisaStudenata = $StudentObject->BrojZapisa;
+$KnjigaObject = new DBKnjiga($KonekcijaObject, 'knjiga');
+$KnjigaObject->UcitajKnjiguPoISBN($StariISBNZaIzmenu);
+
+$KolekcijaZapisaStudenata = $KnjigaObject->Kolekcija;
+$UkupanBrojZapisaStudenata = $KnjigaObject->BrojZapisa;
 
 if ($UkupanBrojZapisaStudenata > 0) {
     $row = 0;
-    $StariBrojIndeksa = $StudentObject->DajVrednostPoRednomBrojuZapisaPoRBPolja($KolekcijaZapisaStudenata, $row, 0);
-    $StaroPrezime = $StudentObject->DajVrednostPoRednomBrojuZapisaPoRBPolja($KolekcijaZapisaStudenata, $row, 1);
-    $StaroIme = $StudentObject->DajVrednostPoRednomBrojuZapisaPoRBPolja($KolekcijaZapisaStudenata, $row, 2);
-    $StaraOznakaSmera = $StudentObject->DajVrednostPoRednomBrojuZapisaPoRBPolja($KolekcijaZapisaStudenata, $row, 3);
-    $StariNazivFajlaFotografije = $StudentObject->DajVrednostPoRednomBrojuZapisaPoRBPolja($KolekcijaZapisaStudenata, $row, 4);
+    $StariISBN = $KnjigaObject->DajVrednostPoRednomBrojuZapisaPoRBPolja($KolekcijaZapisaStudenata, $row, 0);
+    $StariNaziv = $KnjigaObject->DajVrednostPoRednomBrojuZapisaPoRBPolja($KolekcijaZapisaStudenata, $row, 1);
+    $StariAutor = $KnjigaObject->DajVrednostPoRednomBrojuZapisaPoRBPolja($KolekcijaZapisaStudenata, $row, 2);
+    $StaraOznakaZanra = $KnjigaObject->DajVrednostPoRednomBrojuZapisaPoRBPolja($KolekcijaZapisaStudenata, $row, 3);
+    $StariNazivFajlaSlike = $KnjigaObject->DajVrednostPoRednomBrojuZapisaPoRBPolja($KolekcijaZapisaStudenata, $row, 4);
 }
 ?>
 
