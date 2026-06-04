@@ -1,0 +1,12 @@
+HTTP/1.1 302 Found
+Date: Thu, 04 Jun 2026 13:08:03 GMT
+Server: Apache/2.4.54 (Win64) OpenSSL/1.1.1p PHP/8.0.25
+X-Powered-By: PHP/8.0.25
+Set-Cookie: PHPSESSID=7vhdtvdqhg2vgfr2njkd6v5u4k; path=/
+Expires: Thu, 19 Nov 1981 08:52:00 GMT
+Cache-Control: no-store, no-cache, must-revalidate
+Pragma: no-cache
+Location: index.php
+Content-Length: 0
+Content-Type: text/html; charset=UTF-8
+

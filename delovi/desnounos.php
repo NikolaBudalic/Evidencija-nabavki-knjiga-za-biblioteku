@@ -31,14 +31,15 @@
 <td align="center">
 
 <table style="width:95%;" bgcolor="#D8E7F4" align="center" cellspacing="0" cellpadding="0" border="0">
-<form name="FormaZaUnosKnjige" action="knjigaSnimi.php" method="POST" enctype="multipart/form-data">
+
+<form name="FormaZaUnosKnjige" action="controller/knjigaSnimi.php" method="POST" enctype="multipart/form-data" onsubmit="return proveriUnosKnjige();">
 
 <tr>
 <td align="right" valign="bottom">
 <b><font face="Trebuchet MS" color="black" size="2px">ISBN&nbsp;&nbsp;</font></b>
 </td>
 <td align="left" valign="bottom">
-<input name="isbn" type="text" size="50" maxlength="13" minlength="13"
+<input name="isbn" id="isbn" type="text" size="50" maxlength="13" minlength="13"
 pattern="[0-9]{13}"
 title="ISBN мора имати тачно 13 цифара"
 placeholder="Унесите ISBN књиге" required />
@@ -55,7 +56,7 @@ placeholder="Унесите ISBN књиге" required />
 <b><font face="Trebuchet MS" color="black" size="2px">Назив књиге&nbsp;&nbsp;</font><br/></b>
 </td>
 <td align="left" valign="bottom">
-<input name="naziv" type="text" size="50" maxlength="100"
+<input name="naziv" id="naziv" type="text" size="50" maxlength="100"
 placeholder="Унесите назив књиге" required />
 </td>
 </tr>
@@ -70,7 +71,7 @@ placeholder="Унесите назив књиге" required />
 <b><font face="Trebuchet MS" color="black" size="2px">Аутор&nbsp;&nbsp;</font><br/></b>
 </td>
 <td align="left" valign="bottom">
-<input name="autor" type="text" size="50" maxlength="100"
+<input name="autor" id="autor" type="text" size="50" maxlength="100"
 placeholder="Унесите аутора" required />
 </td>
 </tr>
@@ -86,7 +87,7 @@ placeholder="Унесите аутора" required />
 </td>
 <td align="left" valign="bottom">
 
-<select name="oznakaZanra" required tabindex="7">
+<select name="oznakaZanra" id="oznakaZanra" required tabindex="7">
     <option value="">изаберите...</option>
     <?php
     if ($UkupanBrojZapisa > 0) 
@@ -113,7 +114,7 @@ placeholder="Унесите аутора" required />
 <b><font face="Trebuchet MS" color="black" size="2px">Слика књиге&nbsp;&nbsp;</font><br/></b>
 </td>
 <td align="left" valign="bottom">
-<input name="nazivFajlaSlike" type="file" size="50" />
+<input name="nazivFajlaSlike" type="file" size="50" accept=".jpg,.jpeg,.png" />
 </td>
 </tr>
 
@@ -150,3 +151,34 @@ placeholder="Унесите аутора" required />
 </table>
 
 <img src="images/sredinadole.jpg" width="100%" height="5" alt="" class="flt1" />
+
+<script>
+function proveriUnosKnjige() {
+    let isbn = document.getElementById("isbn").value.trim();
+    let naziv = document.getElementById("naziv").value.trim();
+    let autor = document.getElementById("autor").value.trim();
+    let zanr = document.getElementById("oznakaZanra").value;
+
+    if (!/^[0-9]{13}$/.test(isbn)) {
+        alert("ISBN мора имати тачно 13 цифара.");
+        return false;
+    }
+
+    if (naziv == "" || naziv.length > 100) {
+        alert("Назив књиге је обавезан и не сме бити дужи од 100 карактера.");
+        return false;
+    }
+
+    if (autor == "" || autor.length > 100) {
+        alert("Аутор је обавезан и не сме бити дужи од 100 карактера.");
+        return false;
+    }
+
+    if (zanr == "") {
+        alert("Морате изабрати жанр.");
+        return false;
+    }
+
+    return true;
+}
+</script>

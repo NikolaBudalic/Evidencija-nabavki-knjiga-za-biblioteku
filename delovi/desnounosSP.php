@@ -30,7 +30,7 @@
 <td align="center">
 
 <table style="width:95%;" bgcolor="#D8E7F4" align="center" cellspacing="0" cellpadding="0" border="0">
-<form name="FormaZaUnosKnjigeSP" action="knjigaSnimiSP.php" method="POST" enctype="multipart/form-data">
+<form name="FormaZaUnosKnjigeSP" action="controller/knjigaSnimiSP.php" method="POST" enctype="multipart/form-data">
 
 <tr>
 <td align="right" valign="bottom">

@@ -30,7 +30,7 @@
 <td align="center">
 
 <table style="width:70%;" bgcolor="#D8E7F4" align="center" cellspacing="0" cellpadding="0" border="0">
-<form name="FormaZaIzmenuKnjige" action="knjigaIzmeni.php" method="POST" enctype="multipart/form-data">
+<form name="FormaZaIzmenuKnjige" action="controller/KnjigaIzmeni.php" method="POST" enctype="multipart/form-data">
 
 <tr>
 <td align="right" valign="bottom">

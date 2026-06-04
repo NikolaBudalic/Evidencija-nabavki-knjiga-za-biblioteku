@@ -5,12 +5,12 @@ session_start();
 
 	// zato sto se prilikom require uradi copy paste u ovaj fajl, 
 // onda se putanja do parametra gleda u odnosu na lokaciju ovog fajla 
-require 'klase/BaznaKonekcija.php';
-require 'klase/BaznaTabela.php';
-require 'klase/DBKorisnik.php';
+require '../klase/BaznaKonekcija.php';
+require '../klase/BaznaTabela.php';
+require '../klase/DBKorisnik.php';
 
 $korisnik='NEPOZNAT KORISNIK';
-$objKonekcija = new Konekcija('klase/BaznaParametriKonekcije.xml');
+$objKonekcija = new Konekcija('../klase/BaznaParametriKonekcije.xml');
 $objKonekcija->connect();
 if ($objKonekcija->konekcijaDB)
     {	
@@ -24,12 +24,12 @@ if ($objKonekcija->konekcijaDB)
 			$_SESSION["idkorisnika"] = $objKorisnik->DajIDPrijavljenogKorisnika($loginUserName,$loginPassword);
 			$_SESSION["korisnik"] = $objKorisnik->DajImePrezimePrijavljenogKorisnika($loginUserName,$loginPassword);
 			// ucitavanje pocetne personalizovane stranice
-			header ('Location:Welcome.php');	
+			header ('Location:../Welcome.php');	
 		}
 		else
 		{
 			// neuspeh izaziva ponovo ucitavanje stranice za prijavu
-			header ('Location:prijava.php');	
+			header ('Location:../prijava.php');	
 		}
 	}
 	else

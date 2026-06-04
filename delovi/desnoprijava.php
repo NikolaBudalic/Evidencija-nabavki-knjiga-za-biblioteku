@@ -52,7 +52,7 @@
 
 <!------------------------FORMA ZA UNOS ------->
 <table style="width:50%;" bgcolor="#D8E7F4" padding:0" align="center" cellspacing="0" cellpadding="0" border="0">
-<form ACTION="prijavaprovera.php" METHOD="POST">
+<form ACTION="controller/prijavaprovera.php" METHOD="POST">
 
 <tr>
 <td align="right" valign="bottom">     

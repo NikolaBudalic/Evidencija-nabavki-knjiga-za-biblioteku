@@ -4,7 +4,7 @@ session_start();
 $korisnik = isset($_SESSION["korisnik"]) ? $_SESSION["korisnik"] : null;
 
 if (!isset($korisnik)) {
-    header('Location:index.php');
+    header('Location:../index.php');
     exit();
 }
 
@@ -14,19 +14,19 @@ $Autor = trim($_POST['autor']);
 $OznakaZanra = trim($_POST['oznakaZanra']);
 
 if (!preg_match('/^[0-9]{13}$/', $ISBN)) {
-    die("Грешка: ISBN мора имати тачно 13 цифара.<br><br><a href=\"unosSP.php\">ПОВРАТАК</a>");
+    die("Грешка: ISBN мора имати тачно 13 цифара.<br><br><a href=\"../unosSP.php\">ПОВРАТАК</a>");
 }
 
 if ($Naziv == "" || strlen($Naziv) > 100) {
-    die("Грешка: Назив књиге је обавезан и не сме бити дужи од 100 карактера.<br><br><a href=\"unosSP.php\">ПОВРАТАК</a>");
+    die("Грешка: Назив књиге је обавезан и не сме бити дужи од 100 карактера.<br><br><a href=\"../unosSP.php\">ПОВРАТАК</a>");
 }
 
 if ($Autor == "" || strlen($Autor) > 100) {
-    die("Грешка: Аутор је обавезан и не сме бити дужи од 100 карактера.<br><br><a href=\"unosSP.php\">ПОВРАТАК</a>");
+    die("Грешка: Аутор је обавезан и не сме бити дужи од 100 карактера.<br><br><a href=\"../unosSP.php\">ПОВРАТАК</a>");
 }
 
 if ($OznakaZanra == "") {
-    die("Грешка: Морате изабрати жанр.<br><br><a href=\"unosSP.php\">ПОВРАТАК</a>");
+    die("Грешка: Морате изабрати жанр.<br><br><a href=\"../unosSP.php\">ПОВРАТАК</a>");
 }
 
 $name = "";
@@ -36,16 +36,16 @@ if (isset($_FILES["nazivFajlaSlike"]) && $_FILES["nazivFajlaSlike"]["error"] == 
     $tmp_name = $_FILES["nazivFajlaSlike"]["tmp_name"];
 
     if (!empty($name)) {
-        $location = 'SlikeKnjiga/';
+        $location = '../SlikeKnjiga/';
         move_uploaded_file($tmp_name, $location.$name);
     }
 }
 
 $NazivFajlaSlike = $name;
 
-require "klase/BaznaKonekcija.php";
+require "../klase/BaznaKonekcija.php";
 
-$KonekcijaObject = new Konekcija('klase/BaznaParametriKonekcije.xml');
+$KonekcijaObject = new Konekcija('../klase/BaznaParametriKonekcije.xml');
 $KonekcijaObject->connect();
 
 if ($KonekcijaObject->konekcijaDB) {
@@ -62,21 +62,21 @@ if ($KonekcijaObject->konekcijaDB) {
     $provera = mysqli_query($konekcija, "SELECT ISBN FROM `$baza`.`knjiga` WHERE ISBN='$ISBN'");
 
     if (mysqli_num_rows($provera) > 0) {
-        die("Грешка: Књига са тим ISBN бројем већ постоји.<br><br><a href=\"unosSP.php\">ПОВРАТАК</a>");
+        die("Грешка: Књига са тим ISBN бројем већ постоји.<br><br><a href=\"../unosSP.php\">ПОВРАТАК</a>");
     }
 
     $upit = "CALL DodajKnjigu('$ISBN', '$Naziv', '$Autor', '$OznakaZanra', '$NazivFajlaSlike')";
     $rezultat = mysqli_query($konekcija, $upit);
 
     if ($rezultat) {
-        header('Location:KnjigeLista.php');
+        header('Location:../KnjigeLista.php');
         exit();
     } else {
         echo "Грешка приликом снимања књиге преко stored procedure!";
         echo "<br>";
         echo mysqli_error($konekcija);
         echo "<br><br>";
-        echo "<a href=\"KnjigeLista.php\">ПОВРАТАК</a>";
+        echo "<a href=\"../KnjigeLista.php\">ПОВРАТАК</a>";
     }
 }
 

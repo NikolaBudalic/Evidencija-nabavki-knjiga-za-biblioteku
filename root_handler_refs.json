@@ -1,0 +1,77 @@
+{
+  "knjigaSnimi.php": {
+    "references": [
+      {
+        "file": "delovi/desnounos.php",
+        "type": "contains",
+        "snippet": "der=\"0\">  <form name=\"FormaZaUnosKnjige\" action=\"controller/knjigaSnimi.php\" method=\"POST\" enctype=\"multipart/form-data\" onsubmit=\"retu"
+      },
+      {
+        "file": "delovi/desnounos.php",
+        "type": "action",
+        "match": "controller/knjigaSnimi.php",
+        "line_snippet": "er\" cellspacing=\"0\" cellpadding=\"0\" border=\"0\">  <form name=\"FormaZaUnosKnjige\" action=\"controller/knjigaSnimi.php\" method=\"POST\" enctype=\"multipart/form-data\" onsubmit=\"return proveriUnosKnjige("
+      }
+    ],
+    "controllers_exist": true
+  },
+  "knjigaSnimiSP.php": {
+    "references": [
+      {
+        "file": "delovi/desnounosSP.php",
+        "type": "contains",
+        "snippet": "er=\"0\"> <form name=\"FormaZaUnosKnjigeSP\" action=\"controller/knjigaSnimiSP.php\" method=\"POST\" enctype=\"multipart/form-data\">  <tr> <td ali"
+      },
+      {
+        "file": "delovi/desnounosSP.php",
+        "type": "action",
+        "match": "controller/knjigaSnimiSP.php",
+        "line_snippet": "r\" cellspacing=\"0\" cellpadding=\"0\" border=\"0\"> <form name=\"FormaZaUnosKnjigeSP\" action=\"controller/knjigaSnimiSP.php\" method=\"POST\" enctype=\"multipart/form-data\">  <tr> <td align=\"right\" valign=\"bo"
+      }
+    ],
+    "controllers_exist": true
+  },
+  "nabavkaSnimi.php": {
+    "references": [
+      {
+        "file": "NovaNabavka.php",
+        "type": "contains",
+        "snippet": "th:3%;\"></td> <td align=\"center\">  <form action=\"controller/nabavkaSnimi.php\" method=\"POST\" onsubmit=\"return proveriNabavku();\">  <table"
+      },
+      {
+        "file": "NovaNabavka.php",
+        "type": "action",
+        "match": "controller/nabavkaSnimi.php",
+        "line_snippet": "h:3%;\"></td> </tr>  <tr> <td style=\"width:3%;\"></td> <td align=\"center\">  <form action=\"controller/nabavkaSnimi.php\" method=\"POST\" onsubmit=\"return proveriNabavku();\">  <table style=\"width:90%;\" b"
+      },
+      {
+        "file": "View/NovaNabavka.php",
+        "type": "contains",
+        "snippet": "th:3%;\"></td> <td align=\"center\">  <form action=\"controller/nabavkaSnimi.php\" method=\"POST\" onsubmit=\"return proveriNabavku();\">  <table"
+      },
+      {
+        "file": "View/NovaNabavka.php",
+        "type": "action",
+        "match": "controller/nabavkaSnimi.php",
+        "line_snippet": "h:3%;\"></td> </tr>  <tr> <td style=\"width:3%;\"></td> <td align=\"center\">  <form action=\"controller/nabavkaSnimi.php\" method=\"POST\" onsubmit=\"return proveriNabavku();\">  <table style=\"width:90%;\" b"
+      }
+    ],
+    "controllers_exist": true
+  },
+  "prijavaprovera.php": {
+    "references": [
+      {
+        "file": "delovi/desnoprijava.php",
+        "type": "contains",
+        "snippet": "ng=\"0\" cellpadding=\"0\" border=\"0\"> <form ACTION=\"controller/prijavaprovera.php\" METHOD=\"POST\">  <tr> <td align=\"right\" valign=\"bottom\">   "
+      },
+      {
+        "file": "delovi/desnoprijava.php",
+        "type": "action",
+        "match": "controller/prijavaprovera.php",
+        "line_snippet": "F4\" padding:0\" align=\"center\" cellspacing=\"0\" cellpadding=\"0\" border=\"0\"> <form ACTION=\"controller/prijavaprovera.php\" METHOD=\"POST\">  <tr> <td align=\"right\" valign=\"bottom\">      <b><font face=\"Tre"
+      }
+    ],
+    "controllers_exist": true
+  }
+}
