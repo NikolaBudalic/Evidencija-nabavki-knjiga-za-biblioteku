@@ -1,8 +1,0 @@
-HTTP/1.1 200 OK
-Date: Thu, 04 Jun 2026 13:08:03 GMT
-Server: Apache/2.4.54 (Win64) OpenSSL/1.1.1p PHP/8.0.25
-X-Powered-By: PHP/8.0.25
-Content-Length: 515
-Content-Type: application/json; charset=UTF-8
-
-[{"ISBN":"9788610022222","Naziv":"Istorija Srba","Autor":"Ivo Andric","OznakaZanra":"RM","NazivFajlaSlike":"IstorijaSrba.jpg"},{"ISBN":"9788652101234","Naziv":"Na Drini cuprija","Autor":"Ivo Andric","OznakaZanra":"RM","NazivFajlaSlike":"NaDriniCuprija.png"},{"ISBN":"9788654321001","Naziv":"PHP i MySQL","Autor":"Marko Markovic","OznakaZanra":"PR","NazivFajlaSlike":"PHP-i-MySQL.jpg"},{"ISBN":"9788679912345","Naziv":"Prokleta avlija","Autor":"Ivo Andric","OznakaZanra":"RM","NazivFajlaSlike":"ProkletaAvlija.jpg"}]
