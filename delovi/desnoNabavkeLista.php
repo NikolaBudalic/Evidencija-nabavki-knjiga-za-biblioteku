@@ -23,8 +23,6 @@
 <td align="left">
 
 <?php
-$upitNabavke = "SELECT * FROM `$baza`.`nabavka` ORDER BY DatumNabavke DESC";
-$rezultatNabavke = mysqli_query($konekcija, $upitNabavke);
 
 if (mysqli_num_rows($rezultatNabavke) == 0) {
     echo "<font face=\"Trebuchet MS\" color=\"darkblue\" size=\"3px\">Нема евидентираних набавки.</font>";
@@ -53,20 +51,7 @@ if (mysqli_num_rows($rezultatNabavke) == 0) {
         echo "<td><b>Укупно</b></td>";
         echo "</tr>";
 
-        $upitStavke = "
-        SELECT 
-            stavka_nabavke.ISBN,
-            knjiga.Naziv,
-            SUM(stavka_nabavke.Kolicina) AS Kolicina,
-            stavka_nabavke.Cena,
-            SUM(stavka_nabavke.Kolicina * stavka_nabavke.Cena) AS Ukupno
-        FROM `$baza`.`stavka_nabavke`
-        INNER JOIN `$baza`.`knjiga`
-        ON stavka_nabavke.ISBN = knjiga.ISBN
-        WHERE stavka_nabavke.IDNabavke = $IDNabavke
-        GROUP BY stavka_nabavke.ISBN, knjiga.Naziv, stavka_nabavke.Cena";
-
-        $rezultatStavke = mysqli_query($konekcija, $upitStavke);
+        $rezultatStavke = $NabavkaModel->DajStavkeNabavke($IDNabavke);
         $ukupnoNabavka = 0;
 
         while ($stavka = mysqli_fetch_assoc($rezultatStavke)) {

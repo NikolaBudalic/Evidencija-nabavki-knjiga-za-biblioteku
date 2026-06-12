@@ -9,12 +9,16 @@ if (!isset($korisnik)) {
 }
 
 require "klase/BaznaKonekcija.php";
+require "model/NabavkaModel.php";
 
 $KonekcijaObject = new Konekcija("klase/BaznaParametriKonekcije.xml");
 $KonekcijaObject->connect();
 
 $konekcija = $KonekcijaObject->konekcijaDB;
 $baza = $KonekcijaObject->KompletanNazivBazePodataka;
+
+$NabavkaModel = new NabavkaModel($konekcija, $baza);
+$rezultatNabavke = $NabavkaModel->DajSveNabavke();
 ?>
 
 <!DOCTYPE html>

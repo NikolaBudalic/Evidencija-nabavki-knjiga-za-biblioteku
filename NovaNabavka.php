@@ -9,6 +9,7 @@ if (!isset($korisnik)) {
 }
 
 require "klase/BaznaKonekcija.php";
+require "model/KnjigaModel.php";
 
 $KonekcijaObject = new Konekcija("klase/BaznaParametriKonekcije.xml");
 $KonekcijaObject->connect();
@@ -16,8 +17,16 @@ $KonekcijaObject->connect();
 $konekcija = $KonekcijaObject->konekcijaDB;
 $baza = $KonekcijaObject->KompletanNazivBazePodataka;
 
-$upitKnjige = "SELECT ISBN, Naziv, Cena FROM `$baza`.`knjiga` ORDER BY Naziv ASC";
-$rezultatKnjige = mysqli_query($konekcija, $upitKnjige);
+$KnjigaModel = new KnjigaModel($konekcija, $baza);
+$rezultatKnjige = $KnjigaModel->DajSveKnjigeZaNabavku();
+
+$optionsKnjige = "<option value=\"\">изаберите књигу...</option>";
+
+while ($knjiga = mysqli_fetch_assoc($rezultatKnjige)) {
+    $optionsKnjige .= "<option value='".$knjiga['ISBN']."' data-cena='".$knjiga['Cena']."'>
+            ".$knjiga['Naziv']." - ".$knjiga['ISBN']."
+          </option>";
+}
 ?>
 
 <!DOCTYPE html>
@@ -113,58 +122,43 @@ $rezultatKnjige = mysqli_query($konekcija, $upitKnjige);
 
 <br/>
 
-<table style="width:90%; margin-left:auto; margin-right:auto;" bgcolor="#B7F0F7" align="center" cellspacing="0" cellpadding="5" border="1">
+<table id="stavkeTabela" style="width:90%; margin-left:auto; margin-right:auto;" bgcolor="#B7F0F7" align="center" cellspacing="0" cellpadding="5" border="1">
 
 <tr>
-<td colspan="2" align="left">
-<b>СТАВКА НАБАВКЕ</b>
+<td colspan="5" align="left">
+<b>СТАВКЕ НАБАВКЕ</b>
 </td>
 </tr>
 
 <tr>
-<td align="right" style="width:25%;">
-<b>Књига&nbsp;&nbsp;</b>
-</td>
-<td align="left">
-<select name="isbn" id="knjigaSelect" required style="width:380px;">
-<option value="">изаберите књигу...</option>
-<?php
-mysqli_data_seek($rezultatKnjige, 0);
+<td><b>Књига</b></td>
+<td><b>Количина</b></td>
+<td><b>Цена</b></td>
+<td><b>Укупно</b></td>
+<td><b>Акција</b></td>
+</tr>
 
-while ($knjiga = mysqli_fetch_assoc($rezultatKnjige)) {
-    echo "<option value='".$knjiga['ISBN']."' data-cena='".$knjiga['Cena']."'>
-            ".$knjiga['Naziv']." - ".$knjiga['ISBN']."
-          </option>";
-}
-?>
+<tr class="stavkaRed">
+<td>
+<select name="isbn[]" class="knjigaSelect" required style="width:280px;">
+<?php echo $optionsKnjige; ?>
 </select>
 </td>
-</tr>
 
-<tr>
-<td align="right">
-<b>Количина&nbsp;&nbsp;</b>
+<td>
+<input type="number" name="kolicina[]" class="kolicinaInput" min="1" required style="width:90px;">
 </td>
-<td align="left">
-<input type="number" name="kolicina" id="kolicinaInput" min="1" required style="width:120px;">
-</td>
-</tr>
 
-<tr>
-<td align="right">
-<b>Цена&nbsp;&nbsp;</b>
+<td>
+<input type="number" name="cena[]" class="cenaInput" min="1" step="0.01" required style="width:90px;">
 </td>
-<td align="left">
-<input type="number" id="cenaInput" name="cena" min="1" step="0.01" required style="width:120px;">
-</td>
-</tr>
 
-<tr>
-<td align="right">
-<b>Укупно&nbsp;&nbsp;</b>
+<td>
+<input type="text" class="ukupnoInput" readonly style="width:90px;">
 </td>
-<td align="left">
-<input type="text" id="ukupnoInput" readonly style="width:120px;">
+
+<td>
+<button type="button" onclick="obrisiStavku(this)">ОБРИШИ</button>
 </td>
 </tr>
 
@@ -175,7 +169,8 @@ while ($knjiga = mysqli_fetch_assoc($rezultatKnjige)) {
 <table style="width:90%;" align="center">
 <tr>
 <td align="center">
-<br/>
+<button type="button" onclick="dodajStavku()">ДОДАЈ ЈОШ ЈЕДНУ СТАВКУ</button>
+<br/><br/>
 <input type="submit" value="САЧУВАЈ НАБАВКУ">
 </td>
 </tr>
@@ -187,7 +182,6 @@ while ($knjiga = mysqli_fetch_assoc($rezultatKnjige)) {
 <td style="width:3%;"></td>
 </tr>
 
-</form>
 </table>
 
 </td>
@@ -225,42 +219,114 @@ while ($knjiga = mysqli_fetch_assoc($rezultatKnjige)) {
 </table>
 
 <script>
-document.getElementById("knjigaSelect").addEventListener("change", function() {
-    let selectedOption = this.options[this.selectedIndex];
-    let cena = selectedOption.getAttribute("data-cena");
+let optionsKnjige = `<?php echo str_replace("`", "\`", $optionsKnjige); ?>`;
 
-    document.getElementById("cenaInput").value = cena;
-    izracunajUkupno();
-});
+function postaviDogadjajeZaRed(red) {
+    let knjigaSelect = red.querySelector(".knjigaSelect");
+    let kolicinaInput = red.querySelector(".kolicinaInput");
+    let cenaInput = red.querySelector(".cenaInput");
 
-document.getElementById("kolicinaInput").addEventListener("input", izracunajUkupno);
-document.getElementById("cenaInput").addEventListener("input", izracunajUkupno);
+    knjigaSelect.addEventListener("change", function() {
+        let selectedOption = this.options[this.selectedIndex];
+        let cena = selectedOption.getAttribute("data-cena");
 
-function izracunajUkupno() {
-    let kolicina = parseFloat(document.getElementById("kolicinaInput").value);
-    let cena = parseFloat(document.getElementById("cenaInput").value);
+        cenaInput.value = cena;
+        izracunajUkupno(red);
+    });
+
+    kolicinaInput.addEventListener("input", function() {
+        izracunajUkupno(red);
+    });
+
+    cenaInput.addEventListener("input", function() {
+        izracunajUkupno(red);
+    });
+}
+
+function izracunajUkupno(red) {
+    let kolicina = parseFloat(red.querySelector(".kolicinaInput").value);
+    let cena = parseFloat(red.querySelector(".cenaInput").value);
+    let ukupnoInput = red.querySelector(".ukupnoInput");
 
     if (!isNaN(kolicina) && !isNaN(cena)) {
-        document.getElementById("ukupnoInput").value = (kolicina * cena).toFixed(2);
+        ukupnoInput.value = (kolicina * cena).toFixed(2);
     } else {
-        document.getElementById("ukupnoInput").value = "";
+        ukupnoInput.value = "";
     }
+}
+
+function dodajStavku() {
+    let tabela = document.getElementById("stavkeTabela");
+
+    let noviRed = document.createElement("tr");
+    noviRed.className = "stavkaRed";
+
+    noviRed.innerHTML = `
+        <td>
+            <select name="isbn[]" class="knjigaSelect" required style="width:280px;">
+                ${optionsKnjige}
+            </select>
+        </td>
+        <td>
+            <input type="number" name="kolicina[]" class="kolicinaInput" min="1" required style="width:90px;">
+        </td>
+        <td>
+            <input type="number" name="cena[]" class="cenaInput" min="1" step="0.01" required style="width:90px;">
+        </td>
+        <td>
+            <input type="text" class="ukupnoInput" readonly style="width:90px;">
+        </td>
+        <td>
+            <button type="button" onclick="obrisiStavku(this)">ОБРИШИ</button>
+        </td>
+    `;
+
+    tabela.appendChild(noviRed);
+    postaviDogadjajeZaRed(noviRed);
+}
+
+function obrisiStavku(dugme) {
+    let redovi = document.querySelectorAll(".stavkaRed");
+
+    if (redovi.length <= 1) {
+        alert("Набавка мора имати бар једну ставку.");
+        return;
+    }
+
+    dugme.closest("tr").remove();
 }
 
 function proveriNabavku() {
     let datum = document.getElementById("datumNabavke").value;
     let dobavljac = document.getElementById("dobavljac").value;
-    let knjiga = document.getElementById("knjigaSelect").value;
-    let kolicina = document.getElementById("kolicinaInput").value;
-    let cena = document.getElementById("cenaInput").value;
+    let redovi = document.querySelectorAll(".stavkaRed");
 
-    if (datum == "" || dobavljac == "" || knjiga == "" || kolicina <= 0 || cena <= 0) {
-        alert("Морате исправно попунити све податке о набавци и ставци набавке.");
+    if (datum == "" || dobavljac == "") {
+        alert("Морате попунити податке о набавци.");
         return false;
+    }
+
+    if (redovi.length == 0) {
+        alert("Набавка мора имати бар једну ставку.");
+        return false;
+    }
+
+    for (let i = 0; i < redovi.length; i++) {
+        let knjiga = redovi[i].querySelector(".knjigaSelect").value;
+        let kolicina = redovi[i].querySelector(".kolicinaInput").value;
+        let cena = redovi[i].querySelector(".cenaInput").value;
+
+        if (knjiga == "" || kolicina <= 0 || cena <= 0) {
+            alert("Морате исправно попунити све ставке набавке.");
+            return false;
+        }
     }
 
     return true;
 }
+
+let prviRed = document.querySelector(".stavkaRed");
+postaviDogadjajeZaRed(prviRed);
 </script>
 
 </body>

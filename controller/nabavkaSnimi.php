@@ -9,12 +9,13 @@ if (!isset($korisnik)) {
 }
 
 // PREUZIMANJE PODATAKA SA FORME
-$datumNabavke = trim($_POST['datumNabavke']);
-$dobavljac = trim($_POST['dobavljac']);
-$napomena = trim($_POST['napomena']);
-$isbn = trim($_POST['isbn']);
-$kolicina = trim($_POST['kolicina']);
-$cena = trim($_POST['cena']);
+$datumNabavke = isset($_POST['datumNabavke']) ? trim($_POST['datumNabavke']) : "";
+$dobavljac = isset($_POST['dobavljac']) ? trim($_POST['dobavljac']) : "";
+$napomena = isset($_POST['napomena']) ? trim($_POST['napomena']) : "";
+
+$isbnNiz = isset($_POST['isbn']) ? $_POST['isbn'] : array();
+$kolicinaNiz = isset($_POST['kolicina']) ? $_POST['kolicina'] : array();
+$cenaNiz = isset($_POST['cena']) ? $_POST['cena'] : array();
 
 // SERVER SIDE VALIDACIJE
 $dozvoljeniDobavljaci = array(
@@ -26,17 +27,13 @@ $dozvoljeniDobavljaci = array(
     "Službeni glasnik"
 );
 
-if ($datumNabavke == "") {
-    die("Грешка: Датум набавке је обавезан.<br><br><a href='../NovaNabavka.php'>ПОВРАТАК</a>");
+if ($datumNabavke == "" || $dobavljac == "") {
+    die("Грешка: Сва обавезна поља о набавци морају бити попуњена.<br><br><a href='../NovaNabavka.php'>ПОВРАТАК</a>");
 }
 
 $datumProvera = DateTime::createFromFormat('Y-m-d', $datumNabavke);
 if (!$datumProvera || $datumProvera->format('Y-m-d') !== $datumNabavke) {
     die("Грешка: Датум набавке није исправан.<br><br><a href='../NovaNabavka.php'>ПОВРАТАК</a>");
-}
-
-if ($dobavljac == "") {
-    die("Грешка: Морате изабрати добављача.<br><br><a href='../NovaNabavka.php'>ПОВРАТАК</a>");
 }
 
 if (!in_array($dobavljac, $dozvoljeniDobavljaci)) {
@@ -47,20 +44,12 @@ if (strlen($napomena) > 255) {
     die("Грешка: Напомена не сме бити дужа од 255 карактера.<br><br><a href='../NovaNabavka.php'>ПОВРАТАК</a>");
 }
 
-if ($isbn == "") {
-    die("Грешка: Морате изабрати књигу.<br><br><a href='../NovaNabavka.php'>ПОВРАТАК</a>");
+if (!is_array($isbnNiz) || count($isbnNiz) == 0) {
+    die("Грешка: Набавка мора имати најмање једну ставку.<br><br><a href='../NovaNabavka.php'>ПОВРАТАК</a>");
 }
 
-if (!preg_match('/^[0-9]{13}$/', $isbn)) {
-    die("Грешка: ISBN мора имати тачно 13 цифара.<br><br><a href='../NovaNabavka.php'>ПОВРАТАК</a>");
-}
-
-if (!is_numeric($kolicina) || $kolicina <= 0 || $kolicina > 100) {
-    die("Грешка: Количина мора бити број у опсегу од 1 до 100.<br><br><a href='../NovaNabavka.php'>ПОВРАТАК</a>");
-}
-
-if (!is_numeric($cena) || $cena <= 0 || $cena > 100000) {
-    die("Грешка: Цена мора бити број у опсегу од 1 до 100000.<br><br><a href='../NovaNabavka.php'>ПОВРАТАК</a>");
+if (count($isbnNiz) != count($kolicinaNiz) || count($isbnNiz) != count($cenaNiz)) {
+    die("Грешка: Подаци о ставкама набавке нису исправно прослеђени.<br><br><a href='../NovaNabavka.php'>ПОВРАТАК</a>");
 }
 
 // KLASE
@@ -75,63 +64,93 @@ require_once "../klase/NabavkaEntitet.php";
 require "../klase/DBNabavka.php";
 require "../klase/DBStavkaNabavke.php";
 
-// KREIRANJE ENTITETA - ASOCIJACIJA I KOMPOZICIJA
-$KnjigaEntitet = new KnjigaEntitet($isbn);
-$StavkaEntitet = new StavkaNabavkeEntitet($KnjigaEntitet, $kolicina, $cena);
-
+// KREIRANJE ENTITETA - KOMPOZICIJA
 $NabavkaEntitet = new NabavkaEntitet($datumNabavke, $dobavljac, $napomena);
-$NabavkaEntitet->DodajStavku($StavkaEntitet);
+
+$provereniISBN = array();
+// VALIDACIJA STAVKI + ASOCIJACIJA
+for ($i = 0; $i < count($isbnNiz); $i++) {
+    $isbn = trim($isbnNiz[$i]);
+    $kolicina = trim($kolicinaNiz[$i]);
+    $cena = trim($cenaNiz[$i]);
+
+    if (in_array($isbn, $provereniISBN)) {
+    die("Грешка: Иста књига не може бити унета више пута у оквиру исте набавке.<br><br><a href='../NovaNabavka.php'>ПОВРАТАК</a>");
+}
+
+$provereniISBN[] = $isbn;
+
+    if ($isbn == "" || $kolicina == "" || $cena == "") {
+        die("Грешка: Сва поља у ставкама набавке морају бити попуњена.<br><br><a href='../NovaNabavka.php'>ПОВРАТАК</a>");
+    }
+
+    if (!preg_match('/^[0-9]{13}$/', $isbn)) {
+        die("Грешка: ISBN мора имати тачно 13 цифара.<br><br><a href='../NovaNabavka.php'>ПОВРАТАК</a>");
+    }
+
+    if (!is_numeric($kolicina) || $kolicina <= 0 || $kolicina > 100) {
+        die("Грешка: Количина мора бити број у опсегу од 1 до 100.<br><br><a href='../NovaNabavka.php'>ПОВРАТАК</a>");
+    }
+
+    if (!is_numeric($cena) || $cena <= 0 || $cena > 100000) {
+        die("Грешка: Цена мора бити број у опсегу од 1 до 100000.<br><br><a href='../NovaNabavka.php'>ПОВРАТАК</a>");
+    }
+
+    $KnjigaEntitet = new KnjigaEntitet($isbn);
+    $StavkaEntitet = new StavkaNabavkeEntitet($KnjigaEntitet, $kolicina, $cena);
+
+    $NabavkaEntitet->DodajStavku($StavkaEntitet);
+}
 
 // KONEKCIJA
 $KonekcijaObject = new Konekcija("../klase/BaznaParametriKonekcije.xml");
 $KonekcijaObject->connect();
 
-if ($KonekcijaObject->konekcijaDB) {
+if (!$KonekcijaObject->konekcijaDB) {
+    die("Није успостављена конекција ка бази података.");
+}
 
-    $konekcija = $KonekcijaObject->konekcijaDB;
+$konekcija = $KonekcijaObject->konekcijaDB;
 
-    // zaštita od SQL injection
-    $datumNabavke = mysqli_real_escape_string($konekcija, $datumNabavke);
-    $dobavljac = mysqli_real_escape_string($konekcija, $dobavljac);
-    $napomena = mysqli_real_escape_string($konekcija, $napomena);
-    $isbn = mysqli_real_escape_string($konekcija, $isbn);
-    $kolicina = mysqli_real_escape_string($konekcija, $kolicina);
-    $cena = mysqli_real_escape_string($konekcija, $cena);
+$datumNabavke = mysqli_real_escape_string($konekcija, $datumNabavke);
+$dobavljac = mysqli_real_escape_string($konekcija, $dobavljac);
+$napomena = mysqli_real_escape_string($konekcija, $napomena);
 
-    $TransakcijaObject = new Transakcija($KonekcijaObject);
-    $TransakcijaObject->ZapocniTransakciju();
+$TransakcijaObject = new Transakcija($KonekcijaObject);
+$TransakcijaObject->ZapocniTransakciju();
 
-    $NabavkaObject = new DBNabavka($KonekcijaObject, "nabavka");
-    $StavkaObject = new DBStavkaNabavke($KonekcijaObject, "stavka_nabavke");
+$NabavkaObject = new DBNabavka($KonekcijaObject, "nabavka");
+$StavkaObject = new DBStavkaNabavke($KonekcijaObject, "stavka_nabavke");
 
-    // proverava da li već postoji nabavka sa istim datumom i dobavljačem
-    $idNabavke = $NabavkaObject->PronadjiNabavku($datumNabavke, $dobavljac);
+// proverava da li već postoji nabavka sa istim datumom i dobavljačem
+$idNabavke = $NabavkaObject->PronadjiNabavku($datumNabavke, $dobavljac);
 
-    $greska1 = "";
-    $greska2 = "";
+$utvrdjenaGreska = "";
 
-    if ($idNabavke == null) {
-        $greska1 = $NabavkaObject->DodajNabavku($datumNabavke, $dobavljac, $napomena);
-        $idNabavke = $NabavkaObject->DajPoslednjiID();
-    }
+if ($idNabavke == null) {
+    $utvrdjenaGreska .= $NabavkaObject->DodajNabavku($datumNabavke, $dobavljac, $napomena);
+    $idNabavke = $NabavkaObject->DajPoslednjiID();
+}
 
-    $greska2 = $StavkaObject->DodajStavkuNabavke($idNabavke, $isbn, $kolicina, $cena);
+// snimanje svih stavki nabavke u istoj transakciji
+foreach ($NabavkaEntitet->ListaStavki as $stavka) {
+    $isbn = mysqli_real_escape_string($konekcija, $stavka->Knjiga->ISBN);
+    $kolicina = mysqli_real_escape_string($konekcija, $stavka->Kolicina);
+    $cena = mysqli_real_escape_string($konekcija, $stavka->Cena);
 
-    $utvrdjenaGreska = $greska1 . $greska2;
+    $utvrdjenaGreska .= $StavkaObject->DodajStavkuNabavke($idNabavke, $isbn, $kolicina, $cena);
+}
 
-    $TransakcijaObject->ZavrsiTransakciju($utvrdjenaGreska);
+$TransakcijaObject->ZavrsiTransakciju($utvrdjenaGreska);
 
-    if ($utvrdjenaGreska != "") {
-        echo "Грешка приликом снимања набавке.";
-        echo "<br>";
-        echo $utvrdjenaGreska;
-        echo "<br><br><a href='../NovaNabavka.php'>ПОВРАТАК</a>";
-    } else {
-        header("Location:../NabavkeLista.php");
-        exit();
-    }
+if ($utvrdjenaGreska != "") {
+    echo "Грешка приликом снимања набавке.";
+    echo "<br>";
+    echo $utvrdjenaGreska;
+    echo "<br><br><a href='../NovaNabavka.php'>ПОВРАТАК</a>";
 } else {
-    echo "Није успостављена конекција ка бази података.";
+    header("Location:../NabavkeLista.php");
+    exit();
 }
 
 $KonekcijaObject->disconnect();
