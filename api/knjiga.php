@@ -1,7 +1,7 @@
 <?php
 header("Content-Type: application/json; charset=UTF-8");
 
-require "../klase/BaznaKonekcija.php";
+require "../tehnoloskeKlase/BaznaKonekcija.php";
 
 if (!isset($_GET['isbn']) || $_GET['isbn'] == "") {
     echo json_encode(["greska" => "ISBN nije prosleđen"], JSON_UNESCAPED_UNICODE);
@@ -10,7 +10,7 @@ if (!isset($_GET['isbn']) || $_GET['isbn'] == "") {
 
 $isbn = $_GET['isbn'];
 
-$KonekcijaObject = new Konekcija('../klase/BaznaParametriKonekcije.xml');
+$KonekcijaObject = new Konekcija('../tehnoloskeKlase/BaznaParametriKonekcije.xml');
 $KonekcijaObject->connect();
 
 if (!$KonekcijaObject->konekcijaDB) {

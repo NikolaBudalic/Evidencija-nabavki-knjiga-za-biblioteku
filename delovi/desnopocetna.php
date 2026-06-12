@@ -81,8 +81,6 @@ else
     echo "</table>";
     echo "<br/><br/>";
 }
-
-$KonekcijaObject->disconnect();
 ?>
 
 </font>

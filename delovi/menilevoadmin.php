@@ -41,7 +41,7 @@
 <tr>
 <td style="width:1px;"></td>
 <td>
-<a href="Welcome.php"><b><font face="Trebuchet MS" color="black" size="3px">&nbsp;ПОЧЕТНА</font></b></a>
+<a href="ruter.php?stranica=welcome"><b><font face="Trebuchet MS" color="black" size="3px">&nbsp;ПОЧЕТНА</font></b></a>
 </td>
 <td style="width:1px;"></td>
 </tr>
@@ -57,7 +57,7 @@
 <tr>
 <td style="width:1px;"></td>
 <td>
-<a href="unos.php"><font face="Trebuchet MS" color="black" size="2px">&nbsp;Унос књиге</font></a>
+<a href="ruter.php?stranica=unos"><font face="Trebuchet MS" color="black" size="2px">&nbsp;Унос књиге</font></a>
 </td>
 <td style="width:1px;"></td>
 </tr>
@@ -65,7 +65,7 @@
 <tr>
 <td style="width:1px;"></td>
 <td>
-<a href="unosSP.php"><font face="Trebuchet MS" color="black" size="2px">&nbsp;Унос књиге (SP)</font></a>
+<a href="ruter.php?stranica=unosSP"><font face="Trebuchet MS" color="black" size="2px">&nbsp;Унос књиге (SP)</font></a>
 </td>
 <td style="width:1px;"></td>
 </tr>
@@ -73,7 +73,7 @@
 <tr>
 <td style="width:1px;"></td>
 <td>
-<a href="KnjigeLista.php"><font face="Trebuchet MS" color="black" size="2px">&nbsp;Листа и ажурирање</font></a>
+<a href="ruter.php?stranica=knjige"><font face="Trebuchet MS" color="black" size="2px">&nbsp;Листа и ажурирање</font></a>
 </td>
 <td style="width:1px;"></td>
 </tr>
@@ -81,7 +81,7 @@
 <tr>
 <td style="width:1px;"></td>
 <td>
-<a href="KnjigeStampa.php"><font face="Trebuchet MS" color="black" size="2px">&nbsp;Штампа књига</font></a>
+<a href="ruter.php?stranica=stampa"><font face="Trebuchet MS" color="black" size="2px">&nbsp;Штампа књига</font></a>
 </td>
 <td style="width:1px;"></td>
 </tr>
@@ -89,7 +89,7 @@
 <tr>
 <td style="width:1px;"></td>
 <td>
-<a href="KnjigeParametarskaStampa.php"><font face="Trebuchet MS" color="black" size="2px">&nbsp;Параметарска штампа</font></a>
+<a href="ruter.php?stranica=parametarskaStampa"><font face="Trebuchet MS" color="black" size="2px">&nbsp;Параметарска штампа</font></a>
 </td>
 <td style="width:1px;"></td>
 </tr>
@@ -97,7 +97,7 @@
 <tr>
 <td style="width:1px;"></td>
 <td>
-<a href="NovaNabavka.php">
+<a href="ruter.php?stranica=novaNabavka">
 <font face="Trebuchet MS" color="black" size="2px">&nbsp;Нова набавка</font>
 </a>
 </td>
@@ -105,19 +105,16 @@
 </tr>
 
 <tr>
-<td style="width:1px;">
-</td>
+<td style="width:1px;"></td>
 <td style="align:center">
- <a href="NabavkeLista.php" >
- <font face="Trebuchet MS" color="black" size="2px">
- &nbsp;Набавке књига
- </font>
- </a>
+<a href="ruter.php?stranica=nabavke">
+<font face="Trebuchet MS" color="black" size="2px">
+&nbsp;Набавке књига
+</font>
+</a>
 </td>
-<td>
-</td>
-<td style="width:1px;">
-</td>
+<td></td>
+<td style="width:1px;"></td>
 </tr>
 
 <tr>

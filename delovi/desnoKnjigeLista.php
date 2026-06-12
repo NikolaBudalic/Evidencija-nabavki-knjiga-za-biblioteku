@@ -74,14 +74,14 @@ else
         echo "<td><font face=\"Trebuchet MS\" color:#3F4534 size=\"2px\">$NazivZanra</font></td>";
 
         echo "<td align=\"center\">";
-        echo "<form action=\"KnjigaIzmeniForm.php\" method=\"POST\">";
+        echo "<form action=\"ruter.php?stranica=izmenaForm\" method=\"POST\">";
         echo "<input type=\"hidden\" name=\"isbn\" value=\"$ISBN\">";
         echo "<input type=\"submit\" name=\"izmeniKnjigu\" value=\"ИЗМЕНИ\" />";
         echo "</form>";
         echo "</td>";
 
         echo "<td align=\"center\">";
-        echo "<form action=\"KnjigaObrisi.php\" method=\"POST\">";
+        echo "<form action=\"kontroler/KnjigaObrisi.php\" method=\"POST\">";
         echo "<input type=\"hidden\" name=\"isbn\" value=\"$ISBN\">";
         echo "<input type=\"submit\" name=\"obrisiKnjigu\" value=\"ОБРИШИ\" onclick=\"return confirm('Да ли сте сигурни да желите да обришете књигу?')\"/>";
         echo "</form>";
@@ -100,7 +100,6 @@ else
     echo "<br/><br/>";
 }
 
-$KonekcijaObject->disconnect();
 ?>
 
 </font>

@@ -1,23 +1,10 @@
-<?php
-session_start();
-session_unset();
-session_destroy();
-
-require_once "kontroler/KnjigeController.php";
-
-$KnjigeController = new KnjigeController();
-
-$filter = isset($_GET['filter']) ? $_GET['filter'] : null;
-
-$KnjigaViewObject = $KnjigeController->DajSveKnjige($filter);
-?>
-
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="sr-RS" xml:lang="sr-RS">
 <meta charset="UTF-8">
 <head>
-<title>ТФ М Пупин Зрењанин</title>
+<title>ТФ М Пупин</title>
 <meta charset="UTF-8">
+<!-----STIL PRIKAZA CSS---->
 <!-----<link rel="stylesheet" type="text/css" href="css/style.css" media="screen">--->
 <!----- POSTAVLJEN U PHP DA BI SE ODMAH VIDELA PROMENA, A NE DA VUCE IZ KESIRANOG FOLDERA U BROWSERU---->
 <?php include 'css/stil.php';?>
@@ -27,8 +14,9 @@ $KnjigaViewObject = $KnjigeController->DajSveKnjige($filter);
 <!-----VELIKA TABELA KOJA SADRZI SVE---->
 <!-----10% SADRZAJ 10%---->
 <table class="no-spacing" style="width:100%; padding:0" align="center" cellspacing="0" cellpadding="0" border="0" style="border-spacing: 0;">
+
 <!-------------------------- ZAGLAVLJE ------->
-<?php include 'delovi/zaglavljeindex.php';?>
+<?php include 'delovi/zaglavljewelcome.php';?>
 
 
 <!-------------------------- DONJI DEO  ------->
@@ -48,16 +36,16 @@ $KnjigaViewObject = $KnjigeController->DajSveKnjige($filter);
 <td style="width:1%;">
 </td>
 
-<td style="width:1%;padding:0" cellspacing="0" cellpadding="0" border="0" valign="top">
-<?php //include 'delovi/menilevofinal.php';?>
+<td style="width:15%;padding:0" cellspacing="0" cellpadding="0" border="0" valign="top">
+<?php include 'delovi/menilevoadmin.php';?>
+</td>
+
+<td style="width:1%;">
 </td>
 
 <td style="width:80%;padding:0" cellspacing="0" cellpadding="0" border="0" valign="top">
 <!------- GLAVNI SADRZAJ desno ----------->  
-<?php include 'delovi/desnopocetna.php';?>
-</td>
-
-<td style="width:1%;">
+<?php include 'delovi/desnoParametarskaStampaKnjiga.php';?>
 </td>
 
 <td style="width:1%;">
@@ -87,10 +75,6 @@ $KnjigaViewObject = $KnjigeController->DajSveKnjige($filter);
 <?php include 'delovi/footer.php';?>
 
 </table>
-
-<?php
-$KnjigeController->ZatvoriKonekciju();
-?>
 
 </body>
 </html>

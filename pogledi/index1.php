@@ -1,16 +1,4 @@
-<?php
-session_start();
-session_unset();
-session_destroy();
-
-require_once "kontroler/KnjigeController.php";
-
-$KnjigeController = new KnjigeController();
-
-$filter = isset($_GET['filter']) ? $_GET['filter'] : null;
-
-$KnjigaViewObject = $KnjigeController->DajSveKnjige($filter);
-?>
+<!DOCTYPE html>
 
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="sr-RS" xml:lang="sr-RS">
@@ -21,7 +9,6 @@ $KnjigaViewObject = $KnjigeController->DajSveKnjige($filter);
 <!-----<link rel="stylesheet" type="text/css" href="css/style.css" media="screen">--->
 <!----- POSTAVLJEN U PHP DA BI SE ODMAH VIDELA PROMENA, A NE DA VUCE IZ KESIRANOG FOLDERA U BROWSERU---->
 <?php include 'css/stil.php';?>
-</head>
 <body>
 
 <!-----VELIKA TABELA KOJA SADRZI SVE---->
@@ -87,10 +74,6 @@ $KnjigaViewObject = $KnjigeController->DajSveKnjige($filter);
 <?php include 'delovi/footer.php';?>
 
 </table>
-
-<?php
-$KnjigeController->ZatvoriKonekciju();
-?>
 
 </body>
 </html>

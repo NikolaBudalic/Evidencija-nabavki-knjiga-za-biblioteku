@@ -12,7 +12,8 @@
 <br/>
 <b>ПАРАМЕТАРСКА ШТАМПА КЊИГЕ</b><br/><br/>
 
-<form action="StampaPodatakaOKnjizi.php" method="POST">
+<form action="ruter.php?stranica=stampaJedneKnjige"
+method="POST">
 ISBN ili Naziv knjige: <input type="text" name="BrojIndeksaFilter" required />
 <input type="submit" name="stampaj" value="ШТАМПАЈ" />
 </form>

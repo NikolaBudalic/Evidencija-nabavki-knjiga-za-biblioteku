@@ -72,7 +72,6 @@ else
     echo "</table>";
 }
 
-$KonekcijaObject->disconnect();
 ?>
 
 </font>

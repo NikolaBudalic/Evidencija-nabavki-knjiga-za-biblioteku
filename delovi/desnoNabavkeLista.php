@@ -51,7 +51,7 @@ if (mysqli_num_rows($rezultatNabavke) == 0) {
         echo "<td><b>Укупно</b></td>";
         echo "</tr>";
 
-        $rezultatStavke = $NabavkaModel->DajStavkeNabavke($IDNabavke);
+        $rezultatStavke = $NabavkeController->DajStavkeNabavke($IDNabavke);
         $ukupnoNabavka = 0;
 
         while ($stavka = mysqli_fetch_assoc($rezultatStavke)) {
@@ -81,7 +81,3 @@ if (mysqli_num_rows($rezultatNabavke) == 0) {
 <td style="width:5%;"></td>
 </tr>
 </table>
-
-<?php
-$KonekcijaObject->disconnect();
-?>

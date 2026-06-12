@@ -1,9 +1,9 @@
 <?php
 header("Content-Type: application/json; charset=UTF-8");
 
-require "../klase/BaznaKonekcija.php";
+require "../tehnoloskeKlase/BaznaKonekcija.php";
 
-$KonekcijaObject = new Konekcija('../klase/BaznaParametriKonekcije.xml');
+$KonekcijaObject = new Konekcija('../tehnoloskeKlase/BaznaParametriKonekcije.xml');
 $KonekcijaObject->connect();
 
 if (!$KonekcijaObject->konekcijaDB) {
