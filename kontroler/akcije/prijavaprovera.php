@@ -5,12 +5,12 @@ session_start();
 
 	// zato sto se prilikom require uradi copy paste u ovaj fajl, 
 // onda se putanja do parametra gleda u odnosu na lokaciju ovog fajla 
-require __DIR__ . '/../tehnoloskeKlase/BaznaKonekcija.php';
-require __DIR__ . '/../tehnoloskeKlase/BaznaTabela.php';
-require __DIR__ . '/../repozitorijumi/DBKorisnik.php';
+require __DIR__ . '/../../tehnoloskeKlase/BaznaKonekcija.php';
+require __DIR__ . '/../../tehnoloskeKlase/BaznaTabela.php';
+require __DIR__ . '/../../repozitorijumi/DBKorisnik.php';
 
 $korisnik='NEPOZNAT KORISNIK';
-$objKonekcija = new Konekcija('../tehnoloskeKlase/BaznaParametriKonekcije.xml');
+$objKonekcija = new Konekcija('../../tehnoloskeKlase/BaznaParametriKonekcije.xml');
 $objKonekcija->connect();
 if ($objKonekcija->konekcijaDB)
     {	
@@ -24,12 +24,12 @@ if ($objKonekcija->konekcijaDB)
 			$_SESSION["idkorisnika"] = $objKorisnik->DajIDPrijavljenogKorisnika($loginUserName,$loginPassword);
 			$_SESSION["korisnik"] = $objKorisnik->DajImePrezimePrijavljenogKorisnika($loginUserName,$loginPassword);
 			// ucitavanje pocetne personalizovane stranice
-			header ('Location:../ruter.php?stranica=welcome');	
+			header ('Location:../../ruter.php?stranica=welcome');	
 		}
 		else
 		{
 			// neuspeh izaziva ponovo ucitavanje stranice za prijavu
-			header ('Location:../ruter.php?stranica=prijava');	
+			header ('Location:../../ruter.php?stranica=prijava');	
 		}
 	}
 	else

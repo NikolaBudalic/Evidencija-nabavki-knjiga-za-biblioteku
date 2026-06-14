@@ -52,7 +52,7 @@
 <td style="width:3%;"></td>
 <td align="center">
 
-<form action="kontroler/nabavkaSnimi.php" method="POST" onsubmit="return proveriNabavku();">
+<form action="kontroler/akcije/nabavkaSnimi.php" method="POST" onsubmit="return proveriNabavku();">
 
 <table style="width:90%;" bgcolor="#B7F0F7" align="center" cellspacing="0" cellpadding="5" border="1">
 <tr>

@@ -1,4 +1,7 @@
 <?php
+
+require_once __DIR__ . "/../model/entiteti/KnjigaEntitet.php";
+
 class DBKnjiga extends Tabela 
 {
     public $ISBN;
@@ -58,5 +61,27 @@ class DBKnjiga extends Tabela
         $greska = $this->IzvrsiAktivanSQLUpit($SQL);
         return $greska;
     }
+    public function DajSveKnjigeKaoModele()
+{
+    $SQL = "SELECT * FROM `".$this->NazivBazePodataka."`.`knjiga` ORDER BY Naziv ASC";
+
+    $this->UcitajSvePoUpitu($SQL);
+
+    $knjige = array();
+
+    for ($i = 0; $i < $this->BrojZapisa; $i++) {
+        $red = array(
+            "ISBN" => $this->DajVrednostPoRednomBrojuZapisaPoRBPolja($this->Kolekcija, $i, 0),
+            "Naziv" => $this->DajVrednostPoRednomBrojuZapisaPoRBPolja($this->Kolekcija, $i, 1),
+            "Autor" => $this->DajVrednostPoRednomBrojuZapisaPoRBPolja($this->Kolekcija, $i, 2),
+            "OznakaZanra" => $this->DajVrednostPoRednomBrojuZapisaPoRBPolja($this->Kolekcija, $i, 3),
+            "NazivFajlaSlike" => $this->DajVrednostPoRednomBrojuZapisaPoRBPolja($this->Kolekcija, $i, 4)
+        );
+
+        $knjige[] = KnjigaEntitet::IzRedaBaze($red);
+    }
+
+    return $knjige;
+}
 }
 ?>

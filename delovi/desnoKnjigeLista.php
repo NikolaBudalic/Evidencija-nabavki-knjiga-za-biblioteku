@@ -81,7 +81,7 @@ else
         echo "</td>";
 
         echo "<td align=\"center\">";
-        echo "<form action=\"kontroler/KnjigaObrisi.php\" method=\"POST\">";
+        echo "<form action=\"ruter.php?stranica=obrisiKnjigu\" method=\"POST\">";
         echo "<input type=\"hidden\" name=\"isbn\" value=\"$ISBN\">";
         echo "<input type=\"submit\" name=\"obrisiKnjigu\" value=\"ОБРИШИ\" onclick=\"return confirm('Да ли сте сигурни да желите да обришете књигу?')\"/>";
         echo "</form>";

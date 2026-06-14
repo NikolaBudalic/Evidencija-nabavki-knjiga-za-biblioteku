@@ -18,7 +18,7 @@ function proveriSesiju()
 switch ($stranica) {
 
     case 'index':
-        require_once 'kontroler/KnjigeController.php';
+        require_once 'kontroler/stranice/KnjigeController.php';
 
         $KnjigeController = new KnjigeController();
         $filter = isset($_GET['filtriraj']) ? $_GET['filter'] : null;
@@ -41,7 +41,7 @@ switch ($stranica) {
     case 'knjige':
         proveriSesiju();
 
-        require_once 'kontroler/KnjigeController.php';
+        require_once 'kontroler/stranice/KnjigeController.php';
 
         $KnjigeController = new KnjigeController();
         $filter = isset($_GET['filtriraj']) ? $_GET['filter'] : null;
@@ -55,7 +55,7 @@ switch ($stranica) {
     case 'unos':
         proveriSesiju();
 
-        require_once 'kontroler/KnjigeController.php';
+        require_once 'kontroler/stranice/KnjigeController.php';
 
         $KnjigeController = new KnjigeController();
 
@@ -71,7 +71,7 @@ switch ($stranica) {
     case 'unosSP':
         proveriSesiju();
 
-        require_once 'kontroler/KnjigeController.php';
+        require_once 'kontroler/stranice/KnjigeController.php';
 
         $KnjigeController = new KnjigeController();
 
@@ -88,7 +88,7 @@ switch ($stranica) {
 
         $StariISBNZaIzmenu = isset($_POST['isbn']) ? $_POST['isbn'] : null;
 
-        require_once 'kontroler/KnjigeController.php';
+        require_once 'kontroler/stranice/KnjigeController.php';
 
         $KnjigeController = new KnjigeController();
 
@@ -124,7 +124,7 @@ switch ($stranica) {
     case 'stampa':
         proveriSesiju();
 
-        require_once 'kontroler/KnjigeController.php';
+        require_once 'kontroler/stranice/KnjigeController.php';
 
         $KnjigeController = new KnjigeController();
         $filter = isset($_GET['filtriraj']) ? $_GET['filter'] : null;
@@ -145,7 +145,7 @@ switch ($stranica) {
 
         $ISBNZaStampu = isset($_POST['BrojIndeksaFilter']) ? $_POST['BrojIndeksaFilter'] : null;
 
-        require_once 'kontroler/KnjigeController.php';
+        require_once 'kontroler/stranice/KnjigeController.php';
 
         $KnjigeController = new KnjigeController();
         $KnjigaObject = $KnjigeController->DajKnjiguZaStampu($ISBNZaStampu);
@@ -170,7 +170,7 @@ switch ($stranica) {
     case 'novaNabavka':
         proveriSesiju();
 
-        require_once 'kontroler/NabavkeController.php';
+        require_once 'kontroler/stranice/NabavkeController.php';
 
         $NabavkeController = new NabavkeController();
         $rezultatKnjige = $NabavkeController->DajKnjigeZaNabavku();
@@ -191,7 +191,7 @@ switch ($stranica) {
     case 'nabavke':
         proveriSesiju();
 
-        require_once 'kontroler/NabavkeController.php';
+        require_once 'kontroler/stranice/NabavkeController.php';
 
         $NabavkeController = new NabavkeController();
         $rezultatNabavke = $NabavkeController->DajSveNabavke();
@@ -202,7 +202,7 @@ switch ($stranica) {
         break;
 
     default:
-        require_once 'kontroler/KnjigeController.php';
+        require_once 'kontroler/stranice/KnjigeController.php';
 
         $KnjigeController = new KnjigeController();
         $filter = null;

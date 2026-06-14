@@ -53,16 +53,16 @@ if (count($isbnNiz) != count($kolicinaNiz) || count($isbnNiz) != count($cenaNiz)
 }
 
 // KLASE
-require __DIR__ . '/../tehnoloskeKlase/BaznaKonekcija.php';
-require __DIR__ . '/../tehnoloskeKlase/BaznaTabela.php';
-require __DIR__ . '/../tehnoloskeKlase/BaznaTransakcija.php';
+require_once __DIR__ . '/../../tehnoloskeKlase/BaznaKonekcija.php';
+require_once __DIR__ . '/../../tehnoloskeKlase/BaznaTabela.php';
+require_once __DIR__ . '/../../tehnoloskeKlase/BaznaTransakcija.php';
 
-require_once __DIR__ . '/../model/KnjigaEntitet.php';
-require_once __DIR__ . '/../model/StavkaNabavkeEntitet.php';
-require_once __DIR__ . '/../model/NabavkaEntitet.php';
+require_once __DIR__ . '/../../model/entiteti/KnjigaEntitet.php';
+require_once __DIR__ . '/../../model/entiteti/StavkaNabavkeEntitet.php';
+require_once __DIR__ . '/../../model/entiteti/NabavkaEntitet.php';
 
-require __DIR__ . '/../repozitorijumi/DBNabavka.php';
-require __DIR__ . '/../repozitorijumi/DBStavkaNabavke.php';
+require_once __DIR__ . "/../../repozitorijumi/DBNabavka.php";
+require_once __DIR__ . "/../../repozitorijumi/DBStavkaNabavke.php";
 
 // KREIRANJE ENTITETA - KOMPOZICIJA
 $NabavkaEntitet = new NabavkaEntitet($datumNabavke, $dobavljac, $napomena);
@@ -103,7 +103,7 @@ $provereniISBN[] = $isbn;
 }
 
 // KONEKCIJA
-$KonekcijaObject = new Konekcija("../tehnoloskeKlase/BaznaParametriKonekcije.xml");
+$KonekcijaObject = new Konekcija(__DIR__ . "/../../tehnoloskeKlase/BaznaParametriKonekcije.xml");
 $KonekcijaObject->connect();
 
 if (!$KonekcijaObject->konekcijaDB) {
@@ -149,7 +149,7 @@ if ($utvrdjenaGreska != "") {
     echo $utvrdjenaGreska;
     echo "<br><br><a href='../ruter.php?stranica=novaNabavka'>ПОВРАТАК</a>";
 } else {
-    header("Location:../ruter.php?stranica=nabavke");
+    header("Location:../../ruter.php?stranica=nabavke");
     exit();
 }
 

@@ -56,9 +56,9 @@ if (isset($_FILES["nazivFajlaSlike"]) && $_FILES["nazivFajlaSlike"]["error"] == 
 
 $NazivFajlaSlike = $name;
 
-require __DIR__ . '/../tehnoloskeKlase/BaznaKonekcija.php';
+require __DIR__ . '/../../tehnoloskeKlase/BaznaKonekcija.php';
 
-$KonekcijaObject = new Konekcija(__DIR__ . '/../tehnoloskeKlase/BaznaParametriKonekcije.xml');
+$KonekcijaObject = new Konekcija(__DIR__ . '/../../tehnoloskeKlase/BaznaParametriKonekcije.xml');
 $KonekcijaObject->connect();
 
 if (!$KonekcijaObject->konekcijaDB) {
@@ -84,14 +84,14 @@ $upit = "CALL DodajKnjigu('$ISBN', '$Naziv', '$Autor', '$OznakaZanra', '$NazivFa
 $rezultat = mysqli_query($konekcija, $upit);
 
 if ($rezultat) {
-    header('Location:../ruter.php?stranica=knjige');
+    header('Location:../../ruter.php?stranica=knjige');
     exit();
 } else {
     echo "Грешка приликом снимања књиге преко stored procedure!";
     echo "<br>";
     echo mysqli_error($konekcija);
     echo "<br><br>";
-    echo "<a href=\"../ruter.php?stranica=knjige\">ПОВРАТАК</a>";
+    echo "<a href=\"../../ruter.php?stranica=knjige\">ПОВРАТАК</a>";
 }
 
 $KonekcijaObject->disconnect();

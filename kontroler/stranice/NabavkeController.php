@@ -1,8 +1,8 @@
 <?php
 
-require_once __DIR__ . '/../tehnoloskeKlase/BaznaKonekcija.php';
-require_once __DIR__ . '/../model/NabavkaModel.php';
-require_once __DIR__ . '/../model/KnjigaModel.php';
+require_once __DIR__ . '/../../tehnoloskeKlase/BaznaKonekcija.php';
+require_once __DIR__ . "/../../model/servisi/NabavkaModel.php";
+require_once __DIR__ . "/../../model/servisi/KnjigaModel.php";
 
 class NabavkeController
 {
@@ -14,7 +14,7 @@ class NabavkeController
 
     public function __construct()
     {
-        $this->KonekcijaObject = new Konekcija(__DIR__ . '/../tehnoloskeKlase/BaznaParametriKonekcije.xml');
+        $this->KonekcijaObject = new Konekcija(__DIR__ . '/../../tehnoloskeKlase/BaznaParametriKonekcije.xml');
         $this->KonekcijaObject->connect();
 
         $this->konekcija = $this->KonekcijaObject->konekcijaDB;

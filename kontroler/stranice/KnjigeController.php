@@ -1,9 +1,9 @@
 <?php
-require_once __DIR__ . '/../tehnoloskeKlase/BaznaKonekcija.php';
-require_once __DIR__ . '/../tehnoloskeKlase/BaznaTabela.php';
-require_once __DIR__ . '/../repozitorijumi/DBZanr.php';
-require_once __DIR__ . '/../repozitorijumi/DBKnjiga.php';
-require_once __DIR__ . '/../repozitorijumi/DBKnjigaV.php';
+require_once __DIR__ . '/../../tehnoloskeKlase/BaznaKonekcija.php';
+require_once __DIR__ . '/../../tehnoloskeKlase/BaznaTabela.php';
+require_once __DIR__ . '/../../repozitorijumi/DBZanr.php';
+require_once __DIR__ . '/../../repozitorijumi/DBKnjiga.php';
+require_once __DIR__ . '/../../repozitorijumi/DBKnjigaV.php';
 
 class KnjigeController
 {
@@ -11,7 +11,7 @@ class KnjigeController
 
     public function __construct()
     {
-        $this->KonekcijaObject = new Konekcija(__DIR__ . '/../tehnoloskeKlase/BaznaParametriKonekcije.xml');
+        $this->KonekcijaObject = new Konekcija(__DIR__ . '/../../tehnoloskeKlase/BaznaParametriKonekcije.xml');
         $this->KonekcijaObject->connect();
     }
 

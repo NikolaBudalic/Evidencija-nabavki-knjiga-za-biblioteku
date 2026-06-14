@@ -10,13 +10,13 @@ if (!isset($korisnik)) {
 
 $IdZaBrisanje = $_POST['isbn'];
 
-require __DIR__ . '/../tehnoloskeKlase/BaznaKonekcija.php';
-require __DIR__ . '/../tehnoloskeKlase/BaznaTabela.php';
-require __DIR__ . '/../tehnoloskeKlase/BaznaTransakcija.php';
-require __DIR__ . '/../repozitorijumi/DBKnjiga.php';
-require __DIR__ . '/../repozitorijumi/DBZanr.php';
+require __DIR__ . '/../../tehnoloskeKlase/BaznaKonekcija.php';
+require __DIR__ . '/../../tehnoloskeKlase/BaznaTabela.php';
+require __DIR__ . '/../../tehnoloskeKlase/BaznaTransakcija.php';
+require __DIR__ . '/../../repozitorijumi/DBKnjiga.php';
+require __DIR__ . '/../../repozitorijumi/DBZanr.php';
 
-$KonekcijaObject = new Konekcija(__DIR__ . '/../tehnoloskeKlase/BaznaParametriKonekcije.xml');
+$KonekcijaObject = new Konekcija(__DIR__ . '/../../tehnoloskeKlase/BaznaParametriKonekcije.xml');
 $KonekcijaObject->connect();
 
 $UtvrdjenaGreska = "";
@@ -38,7 +38,7 @@ if ($KonekcijaObject->konekcijaDB) {
     if ($red['broj'] > 0) {
         $KonekcijaObject->disconnect();
 
-        die("Грешка: Књига се не може обрисати јер постоји у евидентираним набавкама.<br><br><a href=\"../ruter.php?stranica=knjige\">ПОВРАТАК</a>");
+        die("Грешка: Књига се не може обрисати јер постоји у евидентираним набавкама.<br><br><a href=\"../../ruter.php?stranica=knjige\">ПОВРАТАК</a>");
     }
 
     $TransakcijaObject = new Transakcija($KonekcijaObject);
@@ -62,9 +62,9 @@ $KonekcijaObject->disconnect();
 if ($UtvrdjenaGreska) {
     echo "Грешка: $UtvrdjenaGreska";
     echo "<br><br>";
-    echo "<a href=\"../ruter.php?stranica=knjige\">ПОВРАТАК</a>";        
+    echo "<a href=\"../../ruter.php?stranica=knjige\">ПОВРАТАК</a>";        
 } else {
-    header('Location:../ruter.php?stranica=knjige');
+    header('Location:../../ruter.php?stranica=knjige');
     exit();
 }
 ?>

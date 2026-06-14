@@ -32,7 +32,7 @@
 
 <table style="width:95%;" bgcolor="#D8E7F4" align="center" cellspacing="0" cellpadding="0" border="0">
 
-<form name="FormaZaUnosKnjige" action="kontroler/knjigaSnimi.php" method="POST" enctype="multipart/form-data" onsubmit="return proveriUnosKnjige();">
+<form name="FormaZaUnosKnjige" action="kontroler/akcije/knjigaSnimi.php" method="POST" enctype="multipart/form-data" onsubmit="return proveriUnosKnjige();">
 
 <tr>
 <td align="right" valign="bottom">

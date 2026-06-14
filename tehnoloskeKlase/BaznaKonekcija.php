@@ -96,15 +96,12 @@ if ($this->konekcijaDB)
 } // zatvaranje procedure
 
 // *************************************************************
-public function disconnect(){
-	if ($this->VerzijaMYSQLNaredbi=="mysqli")
-	{
-		mysqli_close($this->konekcijaDB);
-	}
-	else // mysql
-	{
-		mysql_close($this->konekcijaMYSQL);
-	}
+public function disconnect()
+{
+    if ($this->konekcijaDB) {
+        mysqli_close($this->konekcijaDB);
+        $this->konekcijaDB = null;
+    }
 }
 	
 }  // zatvaranje klase

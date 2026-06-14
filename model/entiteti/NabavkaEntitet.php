@@ -1,6 +1,6 @@
 <?php
 
-require_once "StavkaNabavkeEntitet.php";
+require_once __DIR__ . "/StavkaNabavkeEntitet.php";
 
 class NabavkaEntitet
 {
@@ -10,7 +10,7 @@ class NabavkaEntitet
     public $Napomena;
     public $ListaStavki;
 
-    public function __construct($DatumNabavke, $Dobavljac, $Napomena = "", $IDNabavke = null)
+    public function __construct($DatumNabavke = "", $Dobavljac = "", $Napomena = "", $IDNabavke = null)
     {
         $this->IDNabavke = $IDNabavke;
         $this->DatumNabavke = $DatumNabavke;
@@ -33,6 +33,16 @@ class NabavkaEntitet
         }
 
         return $ukupno;
+    }
+
+    public static function IzRedaBaze($red)
+    {
+        return new NabavkaEntitet(
+            isset($red["DatumNabavke"]) ? $red["DatumNabavke"] : "",
+            isset($red["Dobavljac"]) ? $red["Dobavljac"] : "",
+            isset($red["Napomena"]) ? $red["Napomena"] : "",
+            isset($red["IDNabavke"]) ? $red["IDNabavke"] : null
+        );
     }
 }
 

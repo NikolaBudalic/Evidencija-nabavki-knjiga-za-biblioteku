@@ -63,9 +63,9 @@ if (isset($_FILES["nazivFajlaSlike"]) && $_FILES["nazivFajlaSlike"]["error"] == 
 
 $NazivFajlaSlike = $name;
 
-require __DIR__ . '/../tehnoloskeKlase/BaznaKonekcija.php';
+require __DIR__ . '/../../tehnoloskeKlase/BaznaKonekcija.php';
 
-$KonekcijaObject = new Konekcija(__DIR__ . '/../tehnoloskeKlase/BaznaParametriKonekcije.xml');
+$KonekcijaObject = new Konekcija(__DIR__ . '/../../tehnoloskeKlase/BaznaParametriKonekcije.xml');
 $KonekcijaObject->connect();
 
 if (!$KonekcijaObject->konekcijaDB) {
@@ -105,7 +105,7 @@ $rezultat2 = mysqli_query($konekcija, $upit2);
 
 if ($rezultat1 && $rezultat2) {
     mysqli_commit($konekcija);
-    header('Location:../ruter.php?stranica=knjige');
+    header('Location:../../ruter.php?stranica=knjige');
     exit();
 } else {
     mysqli_rollback($konekcija);
@@ -113,7 +113,7 @@ if ($rezultat1 && $rezultat2) {
     echo "<br>";
     echo mysqli_error($konekcija);
     echo "<br><br>";
-    echo "<a href=\"../ruter.php?stranica=knjige\">ПОВРАТАК</a>";
+    echo "<a href=\"../../ruter.php?stranica=knjige\">ПОВРАТАК</a>";
 }
 
 $KonekcijaObject->disconnect();
